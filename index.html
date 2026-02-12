@@ -1,65 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Minha TV</title>
 
 <style>
 body{
-margin:0;
-background:#0a0a0f;
-color:white;
-font-family:Arial;
+    margin:0;
+    background:#0b0b0f;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
+/* topo */
 header{
-padding:20px;
-font-size:26px;
-font-weight:bold;
+    padding:18px 20px;
+    font-size:22px;
+    font-weight:800;
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
+/* grid */
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-gap:20px;
-padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:16px;
+    padding:20px;
 }
 
+/* cards */
 .card{
-background:#181820;
-border-radius:14px;
-padding:15px;
-cursor:pointer;
-transition:.2s;
+    background:#18181f;
+    border-radius:14px;
+    padding:20px;
+    cursor:pointer;
+    transition:.25s;
+    border:1px solid rgba(255,255,255,.10);
 }
 
 .card:hover{
-transform:scale(1.05);
-box-shadow:0 0 25px rgba(255,255,255,.2);
+    transform:scale(1.05);
+    box-shadow:0 0 18px rgba(255,255,255,.15);
 }
 
-#player{
-position:fixed;
-inset:0;
-background:black;
-display:none;
+/* player */
+#playerWrap{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:none;
+    z-index:10;
 }
 
 iframe{
-width:100%;
-height:100%;
-border:none;
+    width:100%;
+    height:100%;
+    border:none;
 }
 
-#back{
-position:absolute;
-top:20px;
-left:20px;
-background:rgba(0,0,0,.6);
-padding:10px 15px;
-border-radius:10px;
-cursor:pointer;
-font-size:18px;
+/* botões */
+.controls{
+    position:fixed;
+    top:15px;
+    left:15px;
+    display:flex;
+    gap:10px;
+    z-index:20;
+}
+
+.btn{
+    background:rgba(0,0,0,.6);
+    border:1px solid rgba(255,255,255,.2);
+    padding:10px 14px;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
 }
 </style>
 </head>
@@ -70,43 +86,81 @@ font-size:18px;
 
 <div class="grid">
 
-<div class="card" onclick="play('15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK')">
-Filme / Episódio 1
-</div>
-
-<div class="card" onclick="play('1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l')">
-Filme / Episódio 2
-</div>
-
-<div class="card" onclick="play('1LhBErULpP38lKH-xYQ-HFwYRchQzJCP9')">
-Filme / Episódio 3
-</div>
-
-<div class="card" onclick="play('1bhz4CM-i3m2ESQoRUaD78S800Iy-hvqG')">
-Filme / Episódio 4
-</div>
-
-<div class="card" onclick="play('1sqwrwEx-G5uftPceLmUpqnk0YY4CBcfT')">
-Filme / Episódio 5
+<div class="card" onclick="play('15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK')">Filme / Episódio 1</div>
+<div class="card" onclick="play('1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l')">Filme / Episódio 2</div>
+<div class="card" onclick="play('1LhBErULpP38lKH-xYQ-HFwYRchQzJCP9')">Filme / Episódio 3</div>
+<div class="card" onclick="play('1bhz4CM-i3m2ESQoRUaD78S800Iy-hvqG')">Filme / Episódio 4</div>
+<div class="card" onclick="play('1sqwrwEx-G5uftPceLmUpqnk0YY4CBcfT')">Filme / Episódio 5</div>
+<div class="card" onclick="play('1yimkUkRfLv0f6Ub6yX4t5FIRhFnGhzUA')">Filme / Episódio 6</div>
+<div class="card" onclick="play('1daQ4h6P_og2BOY9FTyqwRlvwQVHajUIG')">Filme / Episódio 7</div>
+<div class="card" onclick="play('1gIUw1d2ZbOB5bw8e0DXPLFm6zg3kYKuy')">Filme / Episódio 8</div>
+<div class="card" onclick="play('1QaH6tIntFBCxsr46e0Mn3eVbepYdY_o3')">Filme / Episódio 9</div>
+<div class="card" onclick="play('1F4Y1WydQI6BzwmI-xic9ykauQMEWoB2q')">Filme / Episódio 10</div>
+<div class="card" onclick="play('1FA016NeIjWBkUr6LEPj3SQQvCtXEq-ej')">Filme / Episódio 11</div>
 
 </div>
 
-<div id="player">
-<div id="back" onclick="closePlayer()">⬅ Voltar</div>
-<iframe id="frame"></iframe>
+<!-- PLAYER -->
+<div id="playerWrap">
+
+<div class="controls">
+<div class="btn" onclick="closePlayer()">⬅ Voltar</div>
+<div class="btn" onclick="fullscreen()">⛶ Tela cheia</div>
+<div class="btn" onclick="next()">Próximo ⏭</div>
+<div class="btn" onclick="prev()">⏮ Anterior</div>
+</div>
+
+<iframe id="frame" allow="autoplay"></iframe>
+
 </div>
 
 <script>
+
+const playlist = [
+"15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK",
+"1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l",
+"1LhBErULpP38lKH-xYQ-HFwYRchQzJCP9",
+"1bhz4CM-i3m2ESQoRUaD78S800Iy-hvqG",
+"1sqwrwEx-G5uftPceLmUpqnk0YY4CBcfT",
+"1yimkUkRfLv0f6Ub6yX4t5FIRhFnGhzUA",
+"1daQ4h6P_og2BOY9FTyqwRlvwQVHajUIG",
+"1gIUw1d2ZbOB5bw8e0DXPLFm6zg3kYKuy",
+"1QaH6tIntFBCxsr46e0Mn3eVbepYdY_o3",
+"1F4Y1WydQI6BzwmI-xic9ykauQMEWoB2q",
+"1FA016NeIjWBkUr6LEPj3SQQvCtXEq-ej"
+];
+
+let current = 0;
+
 function play(id){
-document.getElementById('player').style.display='block';
-document.getElementById('frame').src=
-`https://drive.google.com/file/d/${id}/preview`;
+    current = playlist.indexOf(id);
+    document.getElementById("playerWrap").style.display="block";
+    document.getElementById("frame").src =
+    `https://drive.google.com/file/d/${id}/preview`;
 }
 
 function closePlayer(){
-document.getElementById('frame').src='';
-document.getElementById('player').style.display='none';
+    document.getElementById("frame").src="";
+    document.getElementById("playerWrap").style.display="none";
 }
+
+function next(){
+    current++;
+    if(current >= playlist.length) current = 0;
+    play(playlist[current]);
+}
+
+function prev(){
+    current--;
+    if(current < 0) current = playlist.length-1;
+    play(playlist[current]);
+}
+
+function fullscreen(){
+    const iframe = document.getElementById("frame");
+    if (iframe.requestFullscreen) iframe.requestFullscreen();
+}
+
 </script>
 
 </body>
