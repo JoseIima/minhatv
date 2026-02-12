@@ -6,161 +6,393 @@
 <title>Minha TV</title>
 
 <style>
-body{
-    margin:0;
-    background:#0b0b0f;
-    color:white;
-    font-family:Arial, Helvetica, sans-serif;
-}
+  :root{
+    --bg:#0b0b0f;
+    --card:#18181f;
+    --card2:#20202a;
+    --line:rgba(255,255,255,.10);
+    --txt:#fff;
+    --muted:rgba(255,255,255,.75);
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
-/* topo */
-header{
+  body{ margin:0; background:var(--bg); color:var(--txt); }
+
+  header{
     padding:18px 20px;
     font-size:22px;
-    font-weight:800;
+    font-weight:900;
     border-bottom:1px solid rgba(255,255,255,.08);
-}
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  header .sub{ font-size:13px; color:var(--muted); font-weight:500; }
 
-/* grid */
-.grid{
+  .wrap{ padding:18px; max-width:1200px; margin:0 auto; }
+
+  .toolbar{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+
+  .btn{
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.14);
+    color:#fff;
+    padding:10px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:800;
+    font-size:14px;
+  }
+  .btn:hover{ background:rgba(255,255,255,.16); }
+
+  input{
+    background:rgba(0,0,0,.25);
+    border:1px solid rgba(255,255,255,.14);
+    color:#fff;
+    padding:10px 12px;
+    border-radius:12px;
+    font-size:14px;
+    outline:none;
+    min-width:220px;
+  }
+
+  .grid{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
     gap:16px;
-    padding:20px;
-}
+  }
 
-/* cards */
-.card{
-    background:#18181f;
-    border-radius:14px;
-    padding:20px;
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
     cursor:pointer;
-    transition:.25s;
-    border:1px solid rgba(255,255,255,.10);
-}
+    transition:.22s;
+  }
+  .card:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:0 0 18px rgba(255,255,255,.14);
+  }
 
-.card:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 18px rgba(255,255,255,.15);
-}
+  .poster{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    background:#000;
+    display:block;
+  }
 
-/* player */
-#playerWrap{
+  .pad{ padding:14px; }
+  .title{ font-weight:900; font-size:16px; line-height:1.2; }
+  .meta{ margin-top:8px; color:var(--muted); font-size:12px; display:flex; gap:8px; flex-wrap:wrap; }
+  .tag{ border:1px solid var(--line); padding:3px 8px; border-radius:999px; background:rgba(0,0,0,.18); }
+
+  /* Episodes view */
+  .panel{
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px;
+  }
+  .panel h2{ margin:0 0 8px; font-size:18px; }
+  .panel p{ margin:0 0 12px; color:var(--muted); font-size:13px; }
+
+  .ep-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:12px;
+  }
+  .ep{
+    background:var(--card2);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:12px;
+    cursor:pointer;
+    transition:.18s;
+  }
+  .ep:hover{ transform:scale(1.02); box-shadow:0 0 14px rgba(0,0,0,.4); }
+  .ep b{ display:block; font-size:14px; }
+  .ep small{ color:var(--muted); }
+
+  /* Player */
+  #playerWrap{
     position:fixed;
     inset:0;
-    background:black;
+    background:#000;
     display:none;
-    z-index:10;
-}
-
-iframe{
-    width:100%;
-    height:100%;
-    border:none;
-}
-
-/* botões */
-.controls{
+    z-index:50;
+  }
+  #topbar{
     position:fixed;
-    top:15px;
-    left:15px;
+    top:12px;
+    left:12px;
+    right:12px;
     display:flex;
     gap:10px;
-    z-index:20;
-}
+    flex-wrap:wrap;
+    z-index:60;
+  }
+  #nowPlaying{
+    margin-left:auto;
+    max-width:52vw;
+    color:rgba(255,255,255,.85);
+    font-size:13px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  #npTitle{
+    font-weight:900;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:42vw;
+  }
+  iframe{ width:100%; height:100%; border:none; }
 
-.btn{
-    background:rgba(0,0,0,.6);
-    border:1px solid rgba(255,255,255,.2);
-    padding:10px 14px;
-    border-radius:10px;
-    font-size:16px;
-    cursor:pointer;
-}
+  .hide{ display:none !important; }
 </style>
 </head>
 
 <body>
 
-<header>🎬 Minha TV</header>
+<header>
+  🎬 Minha TV
+  <span class="sub">Donghua → Episódios → Player</span>
+</header>
 
-<div class="grid">
+<div class="wrap">
 
-<div class="card" onclick="play('15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK')">Filme / Episódio 1</div>
-<div class="card" onclick="play('1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l')">Filme / Episódio 2</div>
-<div class="card" onclick="play('1LhBErULpP38lKH-xYQ-HFwYRchQzJCP9')">Filme / Episódio 3</div>
-<div class="card" onclick="play('1bhz4CM-i3m2ESQoRUaD78S800Iy-hvqG')">Filme / Episódio 4</div>
-<div class="card" onclick="play('1sqwrwEx-G5uftPceLmUpqnk0YY4CBcfT')">Filme / Episódio 5</div>
-<div class="card" onclick="play('1yimkUkRfLv0f6Ub6yX4t5FIRhFnGhzUA')">Filme / Episódio 6</div>
-<div class="card" onclick="play('1daQ4h6P_og2BOY9FTyqwRlvwQVHajUIG')">Filme / Episódio 7</div>
-<div class="card" onclick="play('1gIUw1d2ZbOB5bw8e0DXPLFm6zg3kYKuy')">Filme / Episódio 8</div>
-<div class="card" onclick="play('1QaH6tIntFBCxsr46e0Mn3eVbepYdY_o3')">Filme / Episódio 9</div>
-<div class="card" onclick="play('1F4Y1WydQI6BzwmI-xic9ykauQMEWoB2q')">Filme / Episódio 10</div>
-<div class="card" onclick="play('1FA016NeIjWBkUr6LEPj3SQQvCtXEq-ej')">Filme / Episódio 11</div>
+  <!-- HOME (lista de donghua) -->
+  <div id="homeView">
+    <div class="toolbar">
+      <input id="homeSearch" placeholder="Buscar donghua..." />
+    </div>
+
+    <div class="grid" id="donghuaGrid"></div>
+  </div>
+
+  <!-- EPISODES (lista de episódios) -->
+  <div id="episodesView" class="hide">
+    <div class="toolbar">
+      <button class="btn" id="backHome">⬅ Voltar</button>
+      <input id="epSearch" placeholder="Buscar episódio..." />
+    </div>
+
+    <div class="panel">
+      <h2 id="seriesTitle"></h2>
+      <p id="seriesInfo"></p>
+      <div class="ep-grid" id="episodesGrid"></div>
+    </div>
+  </div>
 
 </div>
 
 <!-- PLAYER -->
 <div id="playerWrap">
-
-<div class="controls">
-<div class="btn" onclick="closePlayer()">⬅ Voltar</div>
-<div class="btn" onclick="fullscreen()">⛶ Tela cheia</div>
-<div class="btn" onclick="next()">Próximo ⏭</div>
-<div class="btn" onclick="prev()">⏮ Anterior</div>
-</div>
-
-<iframe id="frame" allow="autoplay"></iframe>
-
+  <div id="topbar">
+    <button class="btn" id="closePlayer">⬅ Voltar</button>
+    <button class="btn" id="prevBtn">⏮ Anterior</button>
+    <button class="btn" id="nextBtn">Próximo ⏭</button>
+    <button class="btn" id="fsBtn">⛶ Tela cheia</button>
+    <div id="nowPlaying">
+      <span class="tag" id="npEp">Ep —</span>
+      <span id="npTitle">—</span>
+    </div>
+  </div>
+  <iframe id="frame" allow="autoplay"></iframe>
 </div>
 
 <script>
-
-const playlist = [
-"15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK",
-"1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l",
-"1LhBErULpP38lKH-xYQ-HFwYRchQzJCP9",
-"1bhz4CM-i3m2ESQoRUaD78S800Iy-hvqG",
-"1sqwrwEx-G5uftPceLmUpqnk0YY4CBcfT",
-"1yimkUkRfLv0f6Ub6yX4t5FIRhFnGhzUA",
-"1daQ4h6P_og2BOY9FTyqwRlvwQVHajUIG",
-"1gIUw1d2ZbOB5bw8e0DXPLFm6zg3kYKuy",
-"1QaH6tIntFBCxsr46e0Mn3eVbepYdY_o3",
-"1F4Y1WydQI6BzwmI-xic9ykauQMEWoB2q",
-"1FA016NeIjWBkUr6LEPj3SQQvCtXEq-ej"
+/**
+ * ✅ EDITE AQUI (se quiser mudar nomes/capas)
+ * - poster: pode ser qualquer URL de imagem (depois você troca por uma capa real)
+ * - episodes: lista com { title, id } (id = ID do Drive)
+ */
+const LIBRARY = [
+  {
+    key: "armji",
+    name: "A Record of a Mortal's Journey to Immortality",
+    type: "Donghua",
+    poster: "https://i.imgur.com/2DhmtJ4.jpg",
+    episodes: [
+      { title: "Episódio 1",  id: "15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK" },
+      { title: "Episódio 2",  id: "1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l" },
+      { title: "Episódio 3",  id: "1LhBErULpP38lKH-xYQ-HFwYRchQzJCP9" },
+      { title: "Episódio 4",  id: "1bhz4CM-i3m2ESQoRUaD78S800Iy-hvqG" },
+      { title: "Episódio 5",  id: "1sqwrwEx-G5uftPceLmUpqnk0YY4CBcfT" },
+      { title: "Episódio 6",  id: "1yimkUkRfLv0f6Ub6yX4t5FIRhFnGhzUA" },
+      { title: "Episódio 7",  id: "1daQ4h6P_og2BOY9FTyqwRlvwQVHajUIG" },
+      { title: "Episódio 8",  id: "1gIUw1d2ZbOB5bw8e0DXPLFm6zg3kYKuy" },
+      { title: "Episódio 9",  id: "1QaH6tIntFBCxsr46e0Mn3eVbepYdY_o3" },
+      { title: "Episódio 10", id: "1F4Y1WydQI6BzwmI-xic9ykauQMEWoB2q" },
+      { title: "Episódio 11", id: "1FA016NeIjWBkUr6LEPj3SQQvCtXEq-ej" },
+    ]
+  }
 ];
 
-let current = 0;
+// ----- STATE -----
+let currentSeries = null;
+let currentIndex = 0;
 
-function play(id){
-    current = playlist.indexOf(id);
-    document.getElementById("playerWrap").style.display="block";
-    document.getElementById("frame").src =
-    `https://drive.google.com/file/d/${id}/preview`;
+// ----- ELEMENTS -----
+const homeView = document.getElementById("homeView");
+const episodesView = document.getElementById("episodesView");
+
+const donghuaGrid = document.getElementById("donghuaGrid");
+const homeSearch = document.getElementById("homeSearch");
+
+const backHome = document.getElementById("backHome");
+const seriesTitle = document.getElementById("seriesTitle");
+const seriesInfo = document.getElementById("seriesInfo");
+const episodesGrid = document.getElementById("episodesGrid");
+const epSearch = document.getElementById("epSearch");
+
+const playerWrap = document.getElementById("playerWrap");
+const frame = document.getElementById("frame");
+const closePlayer = document.getElementById("closePlayer");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const fsBtn = document.getElementById("fsBtn");
+const npTitle = document.getElementById("npTitle");
+const npEp = document.getElementById("npEp");
+
+// ----- HOME RENDER -----
+function renderHome(){
+  const q = (homeSearch.value || "").trim().toLowerCase();
+  donghuaGrid.innerHTML = "";
+
+  const items = LIBRARY.filter(s => s.name.toLowerCase().includes(q));
+
+  items.forEach(series => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <img class="poster" src="${series.poster}" alt="">
+      <div class="pad">
+        <div class="title">${escapeHtml(series.name)}</div>
+        <div class="meta">
+          <span class="tag">${escapeHtml(series.type)}</span>
+          <span class="tag">${series.episodes.length} eps</span>
+        </div>
+      </div>
+    `;
+    div.onclick = () => openSeries(series.key);
+    donghuaGrid.appendChild(div);
+  });
 }
 
-function closePlayer(){
-    document.getElementById("frame").src="";
-    document.getElementById("playerWrap").style.display="none";
+homeSearch.addEventListener("input", renderHome);
+
+// ----- SERIES VIEW -----
+function openSeries(key){
+  currentSeries = LIBRARY.find(s => s.key === key);
+  if(!currentSeries) return;
+
+  homeView.classList.add("hide");
+  episodesView.classList.remove("hide");
+
+  seriesTitle.textContent = currentSeries.name;
+  seriesInfo.textContent = `${currentSeries.type} • ${currentSeries.episodes.length} episódios`;
+
+  epSearch.value = "";
+  renderEpisodes();
 }
 
-function next(){
-    current++;
-    if(current >= playlist.length) current = 0;
-    play(playlist[current]);
+function backToHome(){
+  episodesView.classList.add("hide");
+  homeView.classList.remove("hide");
+  currentSeries = null;
 }
 
-function prev(){
-    current--;
-    if(current < 0) current = playlist.length-1;
-    play(playlist[current]);
+backHome.addEventListener("click", backToHome);
+
+function renderEpisodes(){
+  if(!currentSeries) return;
+
+  const q = (epSearch.value || "").trim().toLowerCase();
+  episodesGrid.innerHTML = "";
+
+  currentSeries.episodes
+    .map((ep, idx) => ({...ep, idx}))
+    .filter(ep => ep.title.toLowerCase().includes(q))
+    .forEach(ep => {
+      const div = document.createElement("div");
+      div.className = "ep";
+      div.innerHTML = `
+        <b>${escapeHtml(ep.title)}</b>
+        <small>Clique para assistir</small>
+      `;
+      div.onclick = () => playEpisode(ep.idx);
+      episodesGrid.appendChild(div);
+    });
 }
 
-function fullscreen(){
-    const iframe = document.getElementById("frame");
-    if (iframe.requestFullscreen) iframe.requestFullscreen();
+epSearch.addEventListener("input", renderEpisodes);
+
+// ----- PLAYER -----
+function playEpisode(idx){
+  if(!currentSeries) return;
+  currentIndex = idx;
+
+  const ep = currentSeries.episodes[currentIndex];
+  npTitle.textContent = currentSeries.name;
+  npEp.textContent = ep.title;
+
+  playerWrap.style.display = "block";
+  // Player do Drive:
+  frame.src = `https://drive.google.com/file/d/${ep.id}/preview`;
 }
 
+function closePlayerFn(){
+  frame.src = "";
+  playerWrap.style.display = "none";
+}
+
+function nextEpisode(){
+  if(!currentSeries) return;
+  currentIndex++;
+  if(currentIndex >= currentSeries.episodes.length) currentIndex = 0;
+  playEpisode(currentIndex);
+}
+
+function prevEpisode(){
+  if(!currentSeries) return;
+  currentIndex--;
+  if(currentIndex < 0) currentIndex = currentSeries.episodes.length - 1;
+  playEpisode(currentIndex);
+}
+
+async function fullscreen(){
+  // Fullscreen do container (melhor que tentar fullscreen no iframe)
+  try{
+    if (playerWrap.requestFullscreen) await playerWrap.requestFullscreen();
+  } catch {}
+}
+
+closePlayer.addEventListener("click", closePlayerFn);
+nextBtn.addEventListener("click", nextEpisode);
+prevBtn.addEventListener("click", prevEpisode);
+fsBtn.addEventListener("click", fullscreen);
+
+// ----- HELPERS -----
+function escapeHtml(s){
+  return (s||"").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+// INIT
+renderHome();
 </script>
 
 </body>
