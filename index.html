@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Minha TV</title>
+
+<style>
+body{
+margin:0;
+background:#0a0a0f;
+color:white;
+font-family:Arial;
+}
+
+header{
+padding:20px;
+font-size:26px;
+font-weight:bold;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:#181820;
+border-radius:14px;
+padding:15px;
+cursor:pointer;
+transition:.2s;
+}
+
+.card:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px rgba(255,255,255,.2);
+}
+
+#player{
+position:fixed;
+inset:0;
+background:black;
+display:none;
+}
+
+iframe{
+width:100%;
+height:100%;
+border:none;
+}
+
+#back{
+position:absolute;
+top:20px;
+left:20px;
+background:rgba(0,0,0,.6);
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>🎬 Minha TV</header>
+
+<div class="grid">
+
+<div class="card" onclick="play('15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK')">
+Filme / Episódio 1
+</div>
+
+<div class="card" onclick="play('1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l')">
+Filme / Episódio 2
+</div>
+
+<div class="card" onclick="play('1LhBErULpP38lKH-xYQ-HFwYRchQzJCP9')">
+Filme / Episódio 3
+</div>
+
+<div class="card" onclick="play('1bhz4CM-i3m2ESQoRUaD78S800Iy-hvqG')">
+Filme / Episódio 4
+</div>
+
+<div class="card" onclick="play('1sqwrwEx-G5uftPceLmUpqnk0YY4CBcfT')">
+Filme / Episódio 5
+
+</div>
+
+<div id="player">
+<div id="back" onclick="closePlayer()">⬅ Voltar</div>
+<iframe id="frame"></iframe>
+</div>
+
+<script>
+function play(id){
+document.getElementById('player').style.display='block';
+document.getElementById('frame').src=
+`https://drive.google.com/file/d/${id}/preview`;
+}
+
+function closePlayer(){
+document.getElementById('frame').src='';
+document.getElementById('player').style.display='none';
+}
+</script>
+
+</body>
+</html>
