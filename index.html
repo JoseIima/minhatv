@@ -9,7 +9,6 @@
   :root{
     --bg:#0b0b0f;
     --card:#18181f;
-    --card2:#20202a;
     --line:rgba(255,255,255,.10);
     --txt:#fff;
     --muted:rgba(255,255,255,.75);
@@ -23,34 +22,10 @@
     font-size:22px;
     font-weight:900;
     border-bottom:1px solid rgba(255,255,255,.08);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
   }
-  header .sub{ font-size:13px; color:var(--muted); font-weight:500; }
+  header .sub{ display:block; font-size:13px; color:var(--muted); font-weight:500; margin-top:6px; }
 
   .wrap{ padding:18px; max-width:1200px; margin:0 auto; }
-
-  .toolbar{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    flex-wrap:wrap;
-    margin-bottom:14px;
-  }
-
-  .btn{
-    background:rgba(255,255,255,.10);
-    border:1px solid rgba(255,255,255,.14);
-    color:#fff;
-    padding:10px 14px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:800;
-    font-size:14px;
-  }
-  .btn:hover{ background:rgba(255,255,255,.16); }
 
   input{
     background:rgba(0,0,0,.25);
@@ -61,12 +36,14 @@
     font-size:14px;
     outline:none;
     min-width:220px;
+    width:min(520px, 100%);
   }
 
   .grid{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
     gap:16px;
+    margin-top:14px;
   }
 
   .card{
@@ -84,7 +61,7 @@
 
   .poster{
     width:100%;
-    height:140px;
+    height:160px;
     object-fit:cover;
     background:#000;
     display:block;
@@ -92,8 +69,7 @@
 
   .pad{ padding:14px; }
   .title{ font-weight:900; font-size:16px; line-height:1.2; }
-  .meta{ margin-top:8px; color:var(--muted); font-size:12px; display:flex; gap:8px; flex-wrap:wrap; }
-  .tag{ border:1px solid var(--line); padding:3px 8px; border-radius:999px; background:rgba(0,0,0,.18); }
+  .meta{ margin-top:8px; color:var(--muted); font-size:12px; }
 
   /* Episodes view */
   .panel{
@@ -111,7 +87,7 @@
     gap:12px;
   }
   .ep{
-    background:var(--card2);
+    background:rgba(255,255,255,.06);
     border:1px solid var(--line);
     border-radius:14px;
     padding:12px;
@@ -122,6 +98,25 @@
   .ep b{ display:block; font-size:14px; }
   .ep small{ color:var(--muted); }
 
+  .toolbar{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .btn{
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.14);
+    color:#fff;
+    padding:10px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:800;
+    font-size:14px;
+  }
+  .btn:hover{ background:rgba(255,255,255,.16); }
+
   /* Player */
   #playerWrap{
     position:fixed;
@@ -130,34 +125,16 @@
     display:none;
     z-index:50;
   }
-  #topbar{
-    position:fixed;
-    top:12px;
-    left:12px;
-    right:12px;
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    z-index:60;
+
+  /* Sem barra nenhuma na tela */
+  #topbar{ display:none !important; }
+
+  iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    display:block;
   }
-  #nowPlaying{
-    margin-left:auto;
-    max-width:52vw;
-    color:rgba(255,255,255,.85);
-    font-size:13px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  #npTitle{
-    font-weight:900;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    max-width:42vw;
-  }
-  iframe{ width:100%; height:100%; border:none; }
 
   .hide{ display:none !important; }
 </style>
@@ -167,21 +144,20 @@
 
 <header>
   🎬 Minha TV
-  <span class="sub">Donghua → Episódios → Player</span>
+  <span class="sub">Clique no Donghua → escolha o episódio → assista sem nada na tela.</span>
 </header>
 
 <div class="wrap">
 
-  <!-- HOME (lista de donghua) -->
+  <!-- HOME -->
   <div id="homeView">
     <div class="toolbar">
       <input id="homeSearch" placeholder="Buscar donghua..." />
     </div>
-
     <div class="grid" id="donghuaGrid"></div>
   </div>
 
-  <!-- EPISODES (lista de episódios) -->
+  <!-- EPISODES -->
   <div id="episodesView" class="hide">
     <div class="toolbar">
       <button class="btn" id="backHome">⬅ Voltar</button>
@@ -199,31 +175,22 @@
 
 <!-- PLAYER -->
 <div id="playerWrap">
-  <div id="topbar">
-    <button class="btn" id="closePlayer">⬅ Voltar</button>
-    <button class="btn" id="prevBtn">⏮ Anterior</button>
-    <button class="btn" id="nextBtn">Próximo ⏭</button>
-    <button class="btn" id="fsBtn">⛶ Tela cheia</button>
-    <div id="nowPlaying">
-      <span class="tag" id="npEp">Ep —</span>
-      <span id="npTitle">—</span>
-    </div>
-  </div>
-  <iframe id="frame" allow="autoplay"></iframe>
+  <!-- sem botões, sem barra -->
+  <iframe id="frame" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>
 
 <script>
 /**
- * ✅ EDITE AQUI (se quiser mudar nomes/capas)
- * - poster: pode ser qualquer URL de imagem (depois você troca por uma capa real)
- * - episodes: lista com { title, id } (id = ID do Drive)
+ * IMPORTANTE:
+ * 1) Coloque sua imagem no repo como "cover.jpg" na mesma pasta do index.html
+ * 2) Se quiser trocar a capa depois, só substitui o arquivo cover.jpg.
  */
 const LIBRARY = [
   {
     key: "armji",
     name: "A Record of a Mortal's Journey to Immortality",
     type: "Donghua",
-    poster: "https://i.imgur.com/2DhmtJ4.jpg",
+    poster: "./cover.jpg",
     episodes: [
       { title: "Episódio 1",  id: "15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK" },
       { title: "Episódio 2",  id: "1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l" },
@@ -240,11 +207,9 @@ const LIBRARY = [
   }
 ];
 
-// ----- STATE -----
 let currentSeries = null;
 let currentIndex = 0;
 
-// ----- ELEMENTS -----
 const homeView = document.getElementById("homeView");
 const episodesView = document.getElementById("episodesView");
 
@@ -259,41 +224,30 @@ const epSearch = document.getElementById("epSearch");
 
 const playerWrap = document.getElementById("playerWrap");
 const frame = document.getElementById("frame");
-const closePlayer = document.getElementById("closePlayer");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const fsBtn = document.getElementById("fsBtn");
-const npTitle = document.getElementById("npTitle");
-const npEp = document.getElementById("npEp");
 
-// ----- HOME RENDER -----
 function renderHome(){
   const q = (homeSearch.value || "").trim().toLowerCase();
   donghuaGrid.innerHTML = "";
 
-  const items = LIBRARY.filter(s => s.name.toLowerCase().includes(q));
-
-  items.forEach(series => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
-      <img class="poster" src="${series.poster}" alt="">
-      <div class="pad">
-        <div class="title">${escapeHtml(series.name)}</div>
-        <div class="meta">
-          <span class="tag">${escapeHtml(series.type)}</span>
-          <span class="tag">${series.episodes.length} eps</span>
+  LIBRARY
+    .filter(s => s.name.toLowerCase().includes(q))
+    .forEach(series => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <img class="poster" src="${series.poster}" alt="">
+        <div class="pad">
+          <div class="title">${escapeHtml(series.name)}</div>
+          <div class="meta">${escapeHtml(series.type)} • ${series.episodes.length} eps</div>
         </div>
-      </div>
-    `;
-    div.onclick = () => openSeries(series.key);
-    donghuaGrid.appendChild(div);
-  });
+      `;
+      div.onclick = () => openSeries(series.key);
+      donghuaGrid.appendChild(div);
+    });
 }
 
 homeSearch.addEventListener("input", renderHome);
 
-// ----- SERIES VIEW -----
 function openSeries(key){
   currentSeries = LIBRARY.find(s => s.key === key);
   if(!currentSeries) return;
@@ -313,7 +267,6 @@ function backToHome(){
   homeView.classList.remove("hide");
   currentSeries = null;
 }
-
 backHome.addEventListener("click", backToHome);
 
 function renderEpisodes(){
@@ -328,10 +281,7 @@ function renderEpisodes(){
     .forEach(ep => {
       const div = document.createElement("div");
       div.className = "ep";
-      div.innerHTML = `
-        <b>${escapeHtml(ep.title)}</b>
-        <small>Clique para assistir</small>
-      `;
+      div.innerHTML = `<b>${escapeHtml(ep.title)}</b><small>Clique para assistir</small>`;
       div.onclick = () => playEpisode(ep.idx);
       episodesGrid.appendChild(div);
     });
@@ -339,59 +289,46 @@ function renderEpisodes(){
 
 epSearch.addEventListener("input", renderEpisodes);
 
-// ----- PLAYER -----
+function tryFullscreen(){
+  // Em muitas TVs isso falha — tudo bem. O player já está ocupando 100% da tela.
+  try{
+    if (playerWrap.requestFullscreen) playerWrap.requestFullscreen();
+  } catch {}
+}
+
 function playEpisode(idx){
   if(!currentSeries) return;
   currentIndex = idx;
 
   const ep = currentSeries.episodes[currentIndex];
-  npTitle.textContent = currentSeries.name;
-  npEp.textContent = ep.title;
-
   playerWrap.style.display = "block";
-  // Player do Drive:
+
+  // Drive preview:
   frame.src = `https://drive.google.com/file/d/${ep.id}/preview`;
+
+  // tenta fullscreen (se suportado)
+  setTimeout(tryFullscreen, 200);
 }
 
-function closePlayerFn(){
+function closePlayer(){
   frame.src = "";
   playerWrap.style.display = "none";
 }
 
-function nextEpisode(){
-  if(!currentSeries) return;
-  currentIndex++;
-  if(currentIndex >= currentSeries.episodes.length) currentIndex = 0;
-  playEpisode(currentIndex);
-}
+// Fechar com ESC (se houver teclado)
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closePlayer();
+});
 
-function prevEpisode(){
-  if(!currentSeries) return;
-  currentIndex--;
-  if(currentIndex < 0) currentIndex = currentSeries.episodes.length - 1;
-  playEpisode(currentIndex);
-}
+// Clique no fundo fecha (opcional) — se achar ruim, me fala que eu tiro
+playerWrap.addEventListener("click", () => closePlayer());
 
-async function fullscreen(){
-  // Fullscreen do container (melhor que tentar fullscreen no iframe)
-  try{
-    if (playerWrap.requestFullscreen) await playerWrap.requestFullscreen();
-  } catch {}
-}
-
-closePlayer.addEventListener("click", closePlayerFn);
-nextBtn.addEventListener("click", nextEpisode);
-prevBtn.addEventListener("click", prevEpisode);
-fsBtn.addEventListener("click", fullscreen);
-
-// ----- HELPERS -----
 function escapeHtml(s){
   return (s||"").replace(/[&<>"']/g, c => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[c]));
 }
 
-// INIT
 renderHome();
 </script>
 
