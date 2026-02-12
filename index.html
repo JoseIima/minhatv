@@ -1,336 +1,405 @@
 <!doctype html>
 <html lang="pt-br">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Minha TV</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Minha TV</title>
 
-<style>
-  :root{
-    --bg:#0b0b0f;
-    --card:#18181f;
-    --line:rgba(255,255,255,.10);
-    --txt:#fff;
-    --muted:rgba(255,255,255,.75);
-    font-family: Arial, Helvetica, sans-serif;
-  }
+    <style>
+        :root {
+            --bg: #0b0b0f;
+            --card: #18181f;
+            --line: rgba(255, 255, 255, .10);
+            --txt: #fff;
+            --muted: rgba(255, 255, 255, .75);
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-  body{ margin:0; background:var(--bg); color:var(--txt); }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--txt);
+        }
 
-  header{
-    padding:18px 20px;
-    font-size:22px;
-    font-weight:900;
-    border-bottom:1px solid rgba(255,255,255,.08);
-  }
-  header .sub{ display:block; font-size:13px; color:var(--muted); font-weight:500; margin-top:6px; }
+        header {
+            padding: 18px 20px;
+            font-size: 22px;
+            font-weight: 900;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+        }
 
-  .wrap{ padding:18px; max-width:1200px; margin:0 auto; }
+        header .sub {
+            display: block;
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 500;
+            margin-top: 6px;
+        }
 
-  input{
-    background:rgba(0,0,0,.25);
-    border:1px solid rgba(255,255,255,.14);
-    color:#fff;
-    padding:10px 12px;
-    border-radius:12px;
-    font-size:14px;
-    outline:none;
-    min-width:220px;
-    width:min(520px, 100%);
-  }
+        .wrap {
+            padding: 18px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-    gap:16px;
-    margin-top:14px;
-  }
+        input {
+            background: rgba(0, 0, 0, .25);
+            border: 1px solid rgba(255, 255, 255, .14);
+            color: #fff;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            min-width: 220px;
+            width: min(520px, 100%);
+        }
 
-  .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:16px;
-    overflow:hidden;
-    cursor:pointer;
-    transition:.22s;
-  }
-  .card:hover{
-    transform:translateY(-3px) scale(1.02);
-    box-shadow:0 0 18px rgba(255,255,255,.14);
-  }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 14px;
+        }
 
-  .poster{
-    width:100%;
-    height:160px;
-    object-fit:cover;
-    background:#000;
-    display:block;
-  }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: .22s;
+        }
 
-  .pad{ padding:14px; }
-  .title{ font-weight:900; font-size:16px; line-height:1.2; }
-  .meta{ margin-top:8px; color:var(--muted); font-size:12px; }
+        .card:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 18px rgba(255, 255, 255, .14);
+        }
 
-  /* Episodes view */
-  .panel{
-    background:rgba(255,255,255,.04);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:14px;
-  }
-  .panel h2{ margin:0 0 8px; font-size:18px; }
-  .panel p{ margin:0 0 12px; color:var(--muted); font-size:13px; }
+        .poster {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #000;
+            display: block;
+        }
 
-  .ep-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:12px;
-  }
-  .ep{
-    background:rgba(255,255,255,.06);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:12px;
-    cursor:pointer;
-    transition:.18s;
-  }
-  .ep:hover{ transform:scale(1.02); box-shadow:0 0 14px rgba(0,0,0,.4); }
-  .ep b{ display:block; font-size:14px; }
-  .ep small{ color:var(--muted); }
+        .pad {
+            padding: 14px;
+        }
 
-  .toolbar{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    flex-wrap:wrap;
-    margin-bottom:14px;
-  }
-  .btn{
-    background:rgba(255,255,255,.10);
-    border:1px solid rgba(255,255,255,.14);
-    color:#fff;
-    padding:10px 14px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:800;
-    font-size:14px;
-  }
-  .btn:hover{ background:rgba(255,255,255,.16); }
+        .title {
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 1.2;
+        }
 
-  /* Player */
-  #playerWrap{
-    position:fixed;
-    inset:0;
-    background:#000;
-    display:none;
-    z-index:50;
-  }
+        .meta {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 12px;
+        }
 
-  /* Sem barra nenhuma na tela */
-  #topbar{ display:none !important; }
+        /* Episodes view */
+        .panel {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 14px;
+        }
 
-  iframe{
-    width:100%;
-    height:100%;
-    border:none;
-    display:block;
-  }
+        .panel h2 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
 
-  .hide{ display:none !important; }
-</style>
+        .panel p {
+            margin: 0 0 12px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .ep-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .ep {
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 12px;
+            cursor: pointer;
+            transition: .18s;
+        }
+
+        .ep:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 14px rgba(0, 0, 0, .4);
+        }
+
+        .ep b {
+            display: block;
+            font-size: 14px;
+        }
+
+        .ep small {
+            color: var(--muted);
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, .10);
+            border: 1px solid rgba(255, 255, 255, .14);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, .16);
+        }
+
+        /* Player */
+        #playerWrap {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: none;
+            z-index: 50;
+        }
+
+        /* Sem barra nenhuma na tela */
+        #topbar {
+            display: none !important;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .hide {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-  🎬 Minha TV
-  <span class="sub">Clique no Donghua → escolha o episódio → assista sem nada na tela.</span>
-</header>
+    <header>
+        🎬 Minha TV
+        <span class="sub">Clique no Donghua → escolha o episódio → assista sem nada na tela.</span>
+    </header>
 
-<div class="wrap">
+    <div class="wrap">
 
-  <!-- HOME -->
-  <div id="homeView">
-    <div class="toolbar">
-      <input id="homeSearch" placeholder="Buscar donghua..." />
+        <!-- HOME -->
+        <div id="homeView">
+            <div class="toolbar">
+                <input id="homeSearch" placeholder="Buscar donghua..." />
+            </div>
+            <div class="grid" id="donghuaGrid"></div>
+        </div>
+
+        <!-- EPISODES -->
+        <div id="episodesView" class="hide">
+            <div class="toolbar">
+                <button class="btn" id="backHome">⬅ Voltar</button>
+                <input id="epSearch" placeholder="Buscar episódio..." />
+            </div>
+
+            <div class="panel">
+                <h2 id="seriesTitle"></h2>
+                <p id="seriesInfo"></p>
+                <div class="ep-grid" id="episodesGrid"></div>
+            </div>
+        </div>
+
     </div>
-    <div class="grid" id="donghuaGrid"></div>
-  </div>
 
-  <!-- EPISODES -->
-  <div id="episodesView" class="hide">
-    <div class="toolbar">
-      <button class="btn" id="backHome">⬅ Voltar</button>
-      <input id="epSearch" placeholder="Buscar episódio..." />
+    <!-- PLAYER -->
+    <div id="playerWrap">
+        <!-- sem botões, sem barra -->
+        <iframe id="frame" allow="autoplay; fullscreen" allowfullscreen></iframe>
     </div>
 
-    <div class="panel">
-      <h2 id="seriesTitle"></h2>
-      <p id="seriesInfo"></p>
-      <div class="ep-grid" id="episodesGrid"></div>
-    </div>
-  </div>
+    <script>
+        /**
+         * IMPORTANTE:
+         * 1) Coloque sua imagem no repo como "cover.jpg" na mesma pasta do index.html
+         * 2) Se quiser trocar a capa depois, só substitui o arquivo cover.jpg.
+         */
+        const LIBRARY = [
+            {
+                key: "armji",
+                name: "A Record of a Mortal's Journey to Immortality",
+                type: "Donghua",
+                poster: "./cover.jpg",
+                episodes: [
+                    
+                    { title: "Episódio 22", id: "18WcN8ezStaPadk7xQIXA4JsQNNKiw3mG" },
+                    { title: "Episódio 23", id: "1mOhLo9VF1COagU2e8JIxLd6DjIHLrwN5" },
+                    { title: "Episódio 24", id: "1f_219C-sV_cG08Gq0xpBAsc_84bYg7md" },
+                    { title: "Episódio 25", id: "190SjqSdBJAEe5o0QNU0x1tG9QzJBF5Y_" },
+                    { title: "Episódio 26", id: "193fttFhLPc5ve3Nu5d9gQFNPRZtGYdci" },
+                    { title: "Episódio 27", id: "1MWyyWTJqy_b001S1unzi6A1Duk3dT1zm" },
+                    { title: "Episódio 28", id: "1p_pnTjpmHx3tmUANwOm1IzALTvpoFGWn" },
+                    { title: "Episódio 29", id: "1Tq4fVU25sFozmSrPsDxPbpMRNpfx8uQW" },
+                    { title: "Episódio 30", id: "1sAKCIbXjE-OcT4ELQQcKqpwS3_6KmBG8" },
+                    { title: "Episódio 31", id: "1SqC-YpLA9xqaBNlqdxyZY2e0CafWIDOH" },
+                    { title: "Episódio 32", id: "d/1OLJ_byRSifDKqoSICiIm8h9S45NWOb-q" },
+                    { title: "Episódio 33", id: "1hgUXvk72t_yvZvacrNEDNjngEAq9TIye" },
+                    { title: "Episódio 34", id: "17WH4PBEEvieKP7ZbLqbBMC9OBxp0dfqG" },
+                    { title: "Episódio 35", id: "19kblTt36o5x6xcRCtrwMkpsRVmC3y9C_" },
+                    { title: "Episódio 36", id: "1VEAtDwoaiZs6a0u3ryBsTIBCbC_j3ct_" },
+                    { title: "Episódio 37", id: "1_QKuvjCyVYHyeXJqD_Pd7IU8Catowxxw" },
+                    { title: "Episódio 38", id: "1ZbxR0SubxlBgzAqIHM6Kf3WE_NbQHWmd" },
+                    { title: "Episódio 39", id: "1KRsWhsxbderyWATckXAlMhAsHhEDxnsw" },
+                    { title: "Episódio 40", id: "1GmWzf9GRJje6OtYc9QzUvMJIh3pwpdsD" },
+                    { title: "Episódio 41", id: "1AotGzIfTcBpnaGfa-lX65DVD9LwVgRYF" },
+                ]
+            }
+        ];
 
-</div>
+        let currentSeries = null;
+        let currentIndex = 0;
 
-<!-- PLAYER -->
-<div id="playerWrap">
-  <!-- sem botões, sem barra -->
-  <iframe id="frame" allow="autoplay; fullscreen" allowfullscreen></iframe>
-</div>
+        const homeView = document.getElementById("homeView");
+        const episodesView = document.getElementById("episodesView");
 
-<script>
-/**
- * IMPORTANTE:
- * 1) Coloque sua imagem no repo como "cover.jpg" na mesma pasta do index.html
- * 2) Se quiser trocar a capa depois, só substitui o arquivo cover.jpg.
- */
-const LIBRARY = [
-  {
-    key: "armji",
-    name: "A Record of a Mortal's Journey to Immortality",
-    type: "Donghua",
-    poster: "./cover.jpg",
-    episodes: [
-      { title: "Episódio 1",  id: "15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK" },
-      { title: "Episódio 2",  id: "1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l" },
-      { title: "Episódio 3",  id: "1LhBErULpP38lKH-xYQ-HFwYRchQzJCP9" },
-      { title: "Episódio 4",  id: "1bhz4CM-i3m2ESQoRUaD78S800Iy-hvqG" },
-      { title: "Episódio 5",  id: "1sqwrwEx-G5uftPceLmUpqnk0YY4CBcfT" },
-      { title: "Episódio 6",  id: "1yimkUkRfLv0f6Ub6yX4t5FIRhFnGhzUA" },
-      { title: "Episódio 7",  id: "1daQ4h6P_og2BOY9FTyqwRlvwQVHajUIG" },
-      { title: "Episódio 8",  id: "1gIUw1d2ZbOB5bw8e0DXPLFm6zg3kYKuy" },
-      { title: "Episódio 9",  id: "1QaH6tIntFBCxsr46e0Mn3eVbepYdY_o3" },
-      { title: "Episódio 10", id: "1F4Y1WydQI6BzwmI-xic9ykauQMEWoB2q" },
-      { title: "Episódio 11", id: "1FA016NeIjWBkUr6LEPj3SQQvCtXEq-ej" },
-    ]
-  }
-];
+        const donghuaGrid = document.getElementById("donghuaGrid");
+        const homeSearch = document.getElementById("homeSearch");
 
-let currentSeries = null;
-let currentIndex = 0;
+        const backHome = document.getElementById("backHome");
+        const seriesTitle = document.getElementById("seriesTitle");
+        const seriesInfo = document.getElementById("seriesInfo");
+        const episodesGrid = document.getElementById("episodesGrid");
+        const epSearch = document.getElementById("epSearch");
 
-const homeView = document.getElementById("homeView");
-const episodesView = document.getElementById("episodesView");
+        const playerWrap = document.getElementById("playerWrap");
+        const frame = document.getElementById("frame");
 
-const donghuaGrid = document.getElementById("donghuaGrid");
-const homeSearch = document.getElementById("homeSearch");
+        function renderHome() {
+            const q = (homeSearch.value || "").trim().toLowerCase();
+            donghuaGrid.innerHTML = "";
 
-const backHome = document.getElementById("backHome");
-const seriesTitle = document.getElementById("seriesTitle");
-const seriesInfo = document.getElementById("seriesInfo");
-const episodesGrid = document.getElementById("episodesGrid");
-const epSearch = document.getElementById("epSearch");
-
-const playerWrap = document.getElementById("playerWrap");
-const frame = document.getElementById("frame");
-
-function renderHome(){
-  const q = (homeSearch.value || "").trim().toLowerCase();
-  donghuaGrid.innerHTML = "";
-
-  LIBRARY
-    .filter(s => s.name.toLowerCase().includes(q))
-    .forEach(series => {
-      const div = document.createElement("div");
-      div.className = "card";
-      div.innerHTML = `
+            LIBRARY
+                .filter(s => s.name.toLowerCase().includes(q))
+                .forEach(series => {
+                    const div = document.createElement("div");
+                    div.className = "card";
+                    div.innerHTML = `
         <img class="poster" src="${series.poster}" alt="">
         <div class="pad">
           <div class="title">${escapeHtml(series.name)}</div>
           <div class="meta">${escapeHtml(series.type)} • ${series.episodes.length} eps</div>
         </div>
       `;
-      div.onclick = () => openSeries(series.key);
-      donghuaGrid.appendChild(div);
-    });
-}
+                    div.onclick = () => openSeries(series.key);
+                    donghuaGrid.appendChild(div);
+                });
+        }
 
-homeSearch.addEventListener("input", renderHome);
+        homeSearch.addEventListener("input", renderHome);
 
-function openSeries(key){
-  currentSeries = LIBRARY.find(s => s.key === key);
-  if(!currentSeries) return;
+        function openSeries(key) {
+            currentSeries = LIBRARY.find(s => s.key === key);
+            if (!currentSeries) return;
 
-  homeView.classList.add("hide");
-  episodesView.classList.remove("hide");
+            homeView.classList.add("hide");
+            episodesView.classList.remove("hide");
 
-  seriesTitle.textContent = currentSeries.name;
-  seriesInfo.textContent = `${currentSeries.type} • ${currentSeries.episodes.length} episódios`;
+            seriesTitle.textContent = currentSeries.name;
+            seriesInfo.textContent = `${currentSeries.type} • ${currentSeries.episodes.length} episódios`;
 
-  epSearch.value = "";
-  renderEpisodes();
-}
+            epSearch.value = "";
+            renderEpisodes();
+        }
 
-function backToHome(){
-  episodesView.classList.add("hide");
-  homeView.classList.remove("hide");
-  currentSeries = null;
-}
-backHome.addEventListener("click", backToHome);
+        function backToHome() {
+            episodesView.classList.add("hide");
+            homeView.classList.remove("hide");
+            currentSeries = null;
+        }
+        backHome.addEventListener("click", backToHome);
 
-function renderEpisodes(){
-  if(!currentSeries) return;
+        function renderEpisodes() {
+            if (!currentSeries) return;
 
-  const q = (epSearch.value || "").trim().toLowerCase();
-  episodesGrid.innerHTML = "";
+            const q = (epSearch.value || "").trim().toLowerCase();
+            episodesGrid.innerHTML = "";
 
-  currentSeries.episodes
-    .map((ep, idx) => ({...ep, idx}))
-    .filter(ep => ep.title.toLowerCase().includes(q))
-    .forEach(ep => {
-      const div = document.createElement("div");
-      div.className = "ep";
-      div.innerHTML = `<b>${escapeHtml(ep.title)}</b><small>Clique para assistir</small>`;
-      div.onclick = () => playEpisode(ep.idx);
-      episodesGrid.appendChild(div);
-    });
-}
+            currentSeries.episodes
+                .map((ep, idx) => ({ ...ep, idx }))
+                .filter(ep => ep.title.toLowerCase().includes(q))
+                .forEach(ep => {
+                    const div = document.createElement("div");
+                    div.className = "ep";
+                    div.innerHTML = `<b>${escapeHtml(ep.title)}</b><small>Clique para assistir</small>`;
+                    div.onclick = () => playEpisode(ep.idx);
+                    episodesGrid.appendChild(div);
+                });
+        }
 
-epSearch.addEventListener("input", renderEpisodes);
+        epSearch.addEventListener("input", renderEpisodes);
 
-function tryFullscreen(){
-  // Em muitas TVs isso falha — tudo bem. O player já está ocupando 100% da tela.
-  try{
-    if (playerWrap.requestFullscreen) playerWrap.requestFullscreen();
-  } catch {}
-}
+        function tryFullscreen() {
+            // Em muitas TVs isso falha — tudo bem. O player já está ocupando 100% da tela.
+            try {
+                if (playerWrap.requestFullscreen) playerWrap.requestFullscreen();
+            } catch { }
+        }
 
-function playEpisode(idx){
-  if(!currentSeries) return;
-  currentIndex = idx;
+        function playEpisode(idx) {
+            if (!currentSeries) return;
+            currentIndex = idx;
 
-  const ep = currentSeries.episodes[currentIndex];
-  playerWrap.style.display = "block";
+            const ep = currentSeries.episodes[currentIndex];
+            playerWrap.style.display = "block";
 
-  // Drive preview:
-  frame.src = `https://drive.google.com/file/d/${ep.id}/preview`;
+            // Drive preview:
+            frame.src = `https://drive.google.com/file/d/${ep.id}/preview`;
 
-  // tenta fullscreen (se suportado)
-  setTimeout(tryFullscreen, 200);
-}
+            // tenta fullscreen (se suportado)
+            setTimeout(tryFullscreen, 200);
+        }
 
-function closePlayer(){
-  frame.src = "";
-  playerWrap.style.display = "none";
-}
+        function closePlayer() {
+            frame.src = "";
+            playerWrap.style.display = "none";
+        }
 
-// Fechar com ESC (se houver teclado)
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closePlayer();
-});
+        // Fechar com ESC (se houver teclado)
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closePlayer();
+        });
 
-// Clique no fundo fecha (opcional) — se achar ruim, me fala que eu tiro
-playerWrap.addEventListener("click", () => closePlayer());
+        // Clique no fundo fecha (opcional) — se achar ruim, me fala que eu tiro
+        playerWrap.addEventListener("click", () => closePlayer());
 
-function escapeHtml(s){
-  return (s||"").replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
+        function escapeHtml(s) {
+            return (s || "").replace(/[&<>"']/g, c => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            }[c]));
+        }
 
-renderHome();
-</script>
+        renderHome();
+    </script>
 
 </body>
+
 </html>
