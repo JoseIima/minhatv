@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#05050a" />
+<title>Minha TV</title>
+<style>
+:root{--bg:#05050a;--card:#12121d;--card2:#191927;--txt:#fff;--muted:rgba(255,255,255,.72);--muted2:rgba(255,255,255,.52);--line:rgba(255,255,255,.12);--red:#e50914;--red2:#ff2d3a;--gold:#ffcc66;--green:#34d399;--shadow:0 22px 70px rgba(0,0,0,.62);--r:20px;--focus:0 0 0 3px rgba(229,9,20,.42),0 0 26px rgba(229,9,20,.45);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(1000px 520px at 15% -10%,rgba(229,9,20,.18),transparent 60%),radial-gradient(900px 520px at 95% 5%,rgba(76,29,149,.22),transparent 65%),linear-gradient(180deg,#05050a,#0b0b12 46%,#05050a);color:var(--txt);min-height:100vh;overflow-x:hidden}button,input{font:inherit}button{color:inherit}.hide{display:none!important}.topbar{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(5,5,10,.96),rgba(5,5,10,.72));border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(14px)}.topinner{max-width:1440px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.logo{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:.2px;font-size:19px;white-space:nowrap}.logoMark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--red),#9f1239);display:grid;place-items:center;box-shadow:0 0 34px rgba(229,9,20,.45)}.logoMark:before{content:"▶";font-size:13px;margin-left:2px}.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.07);color:var(--muted);font-size:12px;font-weight:800}.spacer{flex:1}.navActions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.searchBox{position:relative;min-width:min(480px,72vw)}.searchBox span{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.65}input{width:100%;background:rgba(0,0,0,.34);border:1px solid var(--line);color:#fff;padding:12px 14px 12px 38px;border-radius:14px;outline:none}input:focus,.btn:focus-visible,.card:focus-visible,.ep:focus-visible,.seasonTab:focus-visible{box-shadow:var(--focus);border-color:rgba(229,9,20,.75)}.btn{border:1px solid var(--line);background:rgba(255,255,255,.09);border-radius:14px;padding:11px 14px;cursor:pointer;font-weight:900;transition:.18s transform,.18s background,.18s border-color;user-select:none;text-decoration:none;display:inline-flex;align-items:center;gap:8px}.btn:hover,.btn.focused{transform:translateY(-2px);background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.24)}.primary{background:linear-gradient(135deg,var(--red),#b20710);border-color:rgba(229,9,20,.68)}.primary:hover,.primary.focused{background:linear-gradient(135deg,var(--red2),var(--red));box-shadow:0 18px 44px rgba(229,9,20,.28)}.ghost{background:rgba(0,0,0,.28)}.wrap{max-width:1440px;margin:0 auto;padding:18px}.hero{position:relative;min-height:490px;border-radius:var(--r);overflow:hidden;border:1px solid rgba(255,255,255,.09);box-shadow:var(--shadow);isolation:isolate;background:#111}.heroBg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04);filter:saturate(1.05) contrast(1.05)}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.52) 42%,rgba(0,0,0,.12) 72%,rgba(0,0,0,.05)),linear-gradient(0deg,rgba(5,5,10,.92) 0%,rgba(5,5,10,.34) 45%,rgba(5,5,10,.1))}.heroContent{position:relative;z-index:1;padding:54px 34px;max-width:760px;min-height:490px;display:flex;flex-direction:column;justify-content:flex-end;gap:14px}.eyebrow{display:flex;gap:8px;flex-wrap:wrap}.heroTitle{font-size:clamp(34px,6vw,70px);line-height:.96;font-weight:1000;letter-spacing:-1.4px;text-shadow:0 12px 45px #000}.heroDesc{color:var(--muted);font-size:16px;line-height:1.5;max-width:680px}.heroActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:5px}.hint{color:var(--muted2);font-size:13px;margin-top:5px}.sectionTitle{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:26px 0 12px}.sectionTitle h2{margin:0;font-size:22px;letter-spacing:-.3px}.sectionTitle small{color:var(--muted2);font-weight:700}.row{display:flex;gap:14px;overflow-x:auto;padding:2px 4px 18px;scroll-padding:18px}.row::-webkit-scrollbar{height:10px}.row::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px}.card{position:relative;min-width:218px;width:218px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,var(--card2),var(--card));cursor:pointer;transition:.18s transform,.18s box-shadow,.18s border-color;outline:none}.card:hover,.card.focused{transform:translateY(-6px) scale(1.035);box-shadow:0 22px 60px rgba(0,0,0,.72);border-color:rgba(255,255,255,.26);z-index:5}.poster{width:100%;height:306px;display:block;object-fit:cover;background:#111}.cardGrad{position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(0deg,rgba(0,0,0,.88),transparent);pointer-events:none}.fav{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:999px;display:grid;place-items:center;background:rgba(0,0,0,.56);border:1px solid rgba(255,255,255,.2);font-size:18px;z-index:2}.fav.on{color:var(--gold)}.previewBadge{position:absolute;top:10px;left:10px;background:rgba(229,9,20,.92);border-radius:999px;padding:6px 9px;font-size:11px;font-weight:950;z-index:2;opacity:0;transform:translateY(-4px);transition:.18s}.card:hover .previewBadge,.card.focused .previewBadge{opacity:1;transform:none}.cardPad{position:relative;padding:11px 12px 14px}.cardTitle{font-weight:950;font-size:14px;line-height:1.18}.cardMeta{margin-top:8px;color:var(--muted2);font-size:12px;display:flex;gap:7px;flex-wrap:wrap}.progressTrack{height:5px;background:rgba(255,255,255,.14);border-radius:999px;margin-top:10px;overflow:hidden}.progressFill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--red2));border-radius:999px}.empty{border:1px dashed rgba(255,255,255,.17);background:rgba(255,255,255,.04);border-radius:18px;padding:18px;color:var(--muted)}.crumbs{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:4px 0 14px;color:var(--muted)}.seriesHeader{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.09);border-radius:22px;min-height:230px;background:#111;margin-bottom:16px}.seriesHeaderBg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(1px) saturate(1.05);transform:scale(1.04);opacity:.55}.seriesHeader:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.86),rgba(0,0,0,.38)),linear-gradient(0deg,rgba(5,5,10,.92),transparent)}.seriesHeaderContent{position:relative;z-index:1;padding:24px;display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:end}.miniPoster{width:110px;height:156px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 45px rgba(0,0,0,.55)}.seriesName{font-size:clamp(28px,4vw,46px);line-height:1;font-weight:1000;margin-bottom:8px}.tabs{display:flex;gap:10px;overflow:auto;padding:2px 2px 14px;margin:4px 0 10px}.seasonTab{border:1px solid var(--line);background:rgba(255,255,255,.07);border-radius:999px;padding:10px 14px;font-weight:950;white-space:nowrap;cursor:pointer;outline:none}.seasonTab.active{background:linear-gradient(135deg,var(--red),#ad0610);border-color:rgba(229,9,20,.8)}.epGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}.ep{position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));border-radius:18px;padding:14px;cursor:pointer;transition:.18s transform,.18s background,.18s border-color;outline:none;min-height:105px}.ep:hover,.ep.focused{transform:translateY(-3px);background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}.ep b{display:block;font-size:15px;margin-bottom:8px}.ep small{color:var(--muted2)}.ep.watched{border-color:rgba(52,211,153,.35)}.ep.watched:after{content:"✓";position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:999px;background:rgba(52,211,153,.18);color:var(--green);display:grid;place-items:center;font-weight:1000}.continuePanel{display:grid;grid-template-columns:80px 1fr auto;gap:14px;align-items:center;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(229,9,20,.14),rgba(255,255,255,.05));border-radius:18px;padding:12px;margin:12px 0 18px}.continuePanel img{width:80px;height:110px;border-radius:12px;object-fit:cover}.continuePanel b{display:block;font-size:18px}.continuePanel span{display:block;color:var(--muted);margin-top:5px}#playerWrap{position:fixed;inset:0;background:#000;display:none;z-index:1000}iframe{width:100%;height:100%;border:0;display:block}#playerControls{position:fixed;inset:0;z-index:1010;pointer-events:none;opacity:0;transition:.22s opacity;background:linear-gradient(180deg,rgba(0,0,0,.64),transparent 24%,transparent 72%,rgba(0,0,0,.66))}#playerControls.show{opacity:1}.playerTop{position:absolute;top:18px;left:18px;right:18px;display:flex;gap:10px;align-items:center;pointer-events:auto}.playerTitle{font-weight:950;text-shadow:0 4px 22px #000}.playerBottom{position:absolute;left:18px;right:18px;bottom:22px;display:flex;gap:10px;justify-content:flex-end;pointer-events:auto}.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);opacity:0;z-index:2000;background:rgba(0,0,0,.82);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:11px 16px;box-shadow:0 18px 48px rgba(0,0,0,.55);transition:.22s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:720px){.topinner{align-items:stretch}.spacer{display:none}.searchBox{min-width:100%;order:4}.hero,.heroContent{min-height:430px}.heroContent{padding:28px 20px}.card{min-width:168px;width:168px}.poster{height:236px}.seriesHeaderContent{grid-template-columns:80px 1fr;padding:18px}.miniPoster{width:80px;height:114px}.continuePanel{grid-template-columns:60px 1fr}.continuePanel .btn{grid-column:1/-1;justify-content:center}.continuePanel img{width:60px;height:84px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topinner"><div class="logo"><span class="logoMark"></span>Minha TV <span class="pill" id="pillCount">—</span></div><div class="spacer"></div><div class="navActions"><button class="btn ghost focusable" id="homeBtn">🏠 Home</button><button class="btn ghost focusable" id="favoritesBtn">⭐ Favoritos</button></div><label class="searchBox"><span>🔎</span><input id="globalSearch" class="focusable" placeholder="Buscar donghua ou episódio..." /></label></div></header>
+<main class="wrap"><section id="homeView"><div class="hero" id="hero"><div class="heroBg" id="heroBg"></div><div class="heroContent"><div class="eyebrow" id="heroMeta"></div><div class="heroTitle" id="heroTitle">Minha Biblioteca</div><div class="heroDesc" id="heroDesc">Escolha um donghua e assista direto na TV.</div><div class="heroActions"><button class="btn primary focusable" id="heroContinue">▶ Continuar</button><button class="btn focusable" id="heroEpisodes">📺 Ver episódios</button><button class="btn ghost focusable" id="heroFav">⭐ Favoritar</button></div><div class="hint">TV: use as setas para navegar, Enter/OK para abrir e Voltar/Esc para sair do player.</div></div></div><div id="continueHome"></div><div class="sectionTitle"><h2 id="rowTitle">Donghuas</h2><small>Hover/seleção mostra detalhes no banner</small></div><div class="row" id="donghuaRow"></div></section><section id="episodesView" class="hide"><div class="crumbs"><button class="btn ghost focusable" id="backHome">⬅ Voltar</button><span>Donghua:</span><b id="seriesTitle">—</b><span class="pill" id="seriesPill">—</span></div><div class="seriesHeader"><div class="seriesHeaderBg" id="seriesHeaderBg"></div><div class="seriesHeaderContent"><img class="miniPoster" id="seriesPoster" alt=""><div><div class="eyebrow" id="seriesMeta"></div><div class="seriesName" id="seriesName">—</div><div class="heroDesc" id="seriesDesc">—</div><div class="heroActions"><button class="btn primary focusable" id="playFirstBtn">▶ Assistir</button><button class="btn ghost focusable" id="seriesFavBtn">⭐ Favoritar</button></div></div></div></div><div id="continueSeries"></div><label class="searchBox" style="display:block;max-width:640px;margin-bottom:12px"><span>🔎</span><input id="episodeSearch" class="focusable" placeholder="Buscar episódio..." /></label><div class="tabs" id="seasonTabs"></div><div class="epGrid" id="episodesGrid"></div></section></main>
+<div id="playerWrap"><iframe id="frame" allow="autoplay; fullscreen" allowfullscreen></iframe><div id="playerControls"><div class="playerTop"><button class="btn ghost focusable" id="backBtn">⬅ Voltar</button><div class="playerTitle" id="playerTitle">—</div></div><div class="playerBottom"><button class="btn ghost focusable" id="markWatchedBtn">✓ Marcar visto</button><button class="btn primary focusable" id="nextBtn">Próximo episódio ▶</button></div></div></div><div class="toast" id="toast">—</div>
+<script>
+// ============================================================
+// CAPAS DOS DONGHUAS
+// Coloque suas imagens na pasta /images com estes nomes:
+// armji.jpg, siliang.jpg, wddg.jpg, atg.jpg, loyc.jpg, stellar.jpg, tfg.jpg
+// Para adicionar outro donghua, crie uma imagem em /images e use o caminho em poster.
+// ============================================================
+const LIBRARY = [
+            {
+                key: "armji",
+                name: "A Record of a Mortal's Journey to Immortality",
+                type: "Donghua",
+                poster: "./images/armji.jpg",
+                desc: "Cultivo, seitas e evolução constante. Clique para ver episódios.",
+                episodes: [
+                    { title: "Episódio 1", id: "15Uw8zwbuJ94IVXiu4NniPMwobUcx0yoK" },
+                    { title: "Episódio 2", id: "1EZBO4PzRVkQAINkyHAH_UuHDRps-XH_l" },
+                    { title: "Episódio 3", id: "1LhBErULpP38lKH-xYQ-HFwYRchQzJCP9" },
+                    { title: "Episódio 4", id: "1bhz4CM-i3m2ESQoRUaD78S800Iy-hvqG" },
+                    { title: "Episódio 5", id: "1sqwrwEx-G5uftPceLmUpqnk0YY4CBcfT" },
+                    { title: "Episódio 6", id: "1yimkUkRfLv0f6Ub6yX4t5FIRhFnGhzUA" },
+                    { title: "Episódio 7", id: "1daQ4h6P_og2BOY9FTyqwRlvwQVHajUIG" },
+                    { title: "Episódio 8", id: "1gIUw1d2ZbOB5bw8e0DXPLFm6zg3kYKuy" },
+                    { title: "Episódio 9", id: "1QaH6tIntFBCxsr46e0Mn3eVbepYdY_o3" },
+                    { title: "Episódio 10", id: "1F4Y1WydQI6BzwmI-xic9ykauQMEWoB2q" },
+                    { title: "Episódio 11", id: "1FA016NeIjWBkUr6LEPj3SQQvCtXEq-ej" },
+                ]
+            },
+            {
+                key: "siliang",
+                name: "The Island of Siliang",
+                type: "Donghua",
+                poster: "./images/siliang.jpg",
+                desc: "Aventura e mistério em Siliang. Clique para ver episódios.",
+                episodes: [
+                    { title: "Episódio 1", id: "1_qhUSNmn3mVwsiFICp444YJW98pzT5p4" },
+                    { title: "Episódio 2", id: "1WDRvavAKOr7wkLFQm9WBgVNnrhs9NXrO" },
+                    { title: "Episódio 3", id: "1ktXBSemZL6ZflwPpSTu3O0yDiwZ8RkoO" },
+                    { title: "Episódio 4", id: "12sxOyxyHGw5Lx8TyfXKpgAodNyD2wkhm" },
+                    { title: "Episódio 5", id: "1xDaE_rxt05PfXJKduNFfDaPygnr2NmHw" },
+                    { title: "Episódio 6", id: "1CVLmN3Ama9g7WihjPO6wWogAbGx_59pg" },
+                    { title: "Episódio 7", id: "1PFh7tnb1vKViLbbhtMJ4G2cZj4RyuSfo" },
+                    { title: "Episódio 8", id: "19FKcUPd3CT8hajIhBcpOFaqBCvpQLqvV" },
+                    { title: "Episódio 9", id: "1rYidng9JDz8olw0kshNqEXe8OkJ2cUZr" },
+                    { title: "Episódio 10", id: "1-GV3ahnTB0hPcL_khjVpOMs4VsnTNY3X" },
+                    { title: "Episódio 11", id: "1gy2jweMgm63mOhtba9gwGf0FuC7lAShR" },
+                    { title: "Episódio 12", id: "1zcuXDONOgMY2ZQUd7-cCMnCmI22SzhTv" },
+                    { title: "Episódio 13", id: "1E5YQdlZa8fk2c_4zR5LGQLQOzI7EFlZz" },
+                    { title: "Episódio 14", id: "17TwneI8Q9_3ickIf1GTZxLSErqC_B_yU" }
+                ]
+            },
+            {
+                key: "wddg",
+                name: "World Defying Dan God",
+                type: "Donghua",
+                poster: "./images/wddg.jpg",
+                desc: "Alquimia, cultivo e poder crescente. Clique para ver episódios.",
+                episodes: [
+                    { title: "Episódio 1", id: "1FZ3osjLTfDxegA4yiAtOXRm4-mxe-2W3" },
+                    { title: "Episódio 2", id: "1wLZzT14wsUryiBqH_VKUNG5VRX10ywOd" },
+                    { title: "Episódio 3", id: "11aRZNf92ZKpoxnhd1xxb9T7J5VZufA0W" },
+                    { title: "Episódio 4", id: "1l0nO6HMSNVBYUOkppdDO2MWCMLHiL-ky" },
+                    { title: "Episódio 5", id: "1guzjfaHUWQmJM_DrL7FD1vlBDEPny7rE" },
+                    { title: "Episódio 6", id: "16ErQRLgLeJfLb4Vhjp9ypR3E-L_Z54xj" },
+                    { title: "Episódio 7", id: "1XV8W8nSpteMQwc_JbNVi3S7PjXAi6OSK" },
+                    { title: "Episódio 8", id: "1ybgMN-luRmNK3wkAP_66Fnq1W2d5YcL_" },
+                    { title: "Episódio 9", id: "1sx1uACtEmZ7LeWhIC31Iaya4JtugMmMj" },
+                    { title: "Episódio 10", id: "1aNGAgF1fZwYWI6y2AQXQXnkzoqEmcOAU" }
+                ]
+            },
+            {
+                key: "atg",
+                name: "Against the Gods",
+                type: "Donghua",
+                poster: "./images/atg.jpg",
+                desc: "Cultivo, reinos e ascensão rápida. Episódios a partir do 13.",
+                episodes: [
+                    { title: "Episódio 13", id: "1PTR_F_oGg6ak09Xx6oD4cy4coeWlx2NK" },
+                    { title: "Episódio 14", id: "19DWU_D_mBPrsYI80UJAvLFEk9BPCUP2z" },
+                    { title: "Episódio 15", id: "1AfWmHGLGxatfajAw5o2C4j7EoOFL54C7" },
+                    { title: "Episódio 16", id: "1llPlqrfLAOklqcosP8RBATvnvBcW0vgX" },
+                    { title: "Episódio 17", id: "1sA73BMaPUsEPS1qGRRblT3-7vyjrV706" },
+                    { title: "Episódio 18", id: "1tfgCsHDjLJrsWTy3S8G_Xvjm1HtBJNd0" },
+                    { title: "Episódio 19", id: "1yhWx8PPYR3UIN2_CWA_bfXGRrbAbKUnC" },
+                    { title: "Episódio 20", id: "1JGAFVdGr3P-61mx9gx43BVMpWM0WPnd8" },
+                    { title: "Episódio 21", id: "1gAETIbhYzNJamzuzehE05kTyia5iKVPp" },
+                    { title: "Episódio 22", id: "1v56RUAfAhU4b60qAK5fwmVoYQek3-Fdj" },
+                    { title: "Episódio 23", id: "1iymjmx9t3XgkZO0MLzqKFWX-zjw9WXY0" },
+                    { title: "Episódio 24", id: "11n8BTL7kAzC8fZcbrgjjf1NNHtWFCeoK" },
+                    { title: "Episódio 25", id: "14_G_3H9vqjOH3SobICDp9iBZM3l9h5wp" },
+                    { title: "Episódio 26", id: "1E5WDdr8pEzeo3NDRmIOZAJDsEUQWwkcL" },
+                    { title: "Episódio 27", id: "14Zkf1DO9wxhQyHyD_sDouL4pQTCQLrJp" },
+                    { title: "Episódio 28", id: "1_hz_FznrCRcLwrvXS1DEQrhsoUXSz4Pu" },
+                    { title: "Episódio 29", id: "1MX9Y38OGW0YyrN5c0NjJy_p-DeMNJTLp" },
+                    { title: "Episódio 30", id: "1JGgVDxO8xB8tHo6GJulIqpmZbcx5y_gF" }
+                ]
+            },
+            {
+                key: "loyc",
+                name: "Legend of Yang Chen",
+                type: "Donghua",
+                poster: "./images/loyc.jpg",
+                desc: "Episódios 13–40.",
+                episodes: [
+                    { title: "Episódio 13", id: "1xWeMgOCPYKQ-XnfEMI9sCHGejSQLz3JD" },
+                    { title: "Episódio 14", id: "1xaeyNznSJGopheb2JEYFHWuettKfzn4h" },
+                    { title: "Episódio 15", id: "1NBi0VWsLXFyB017tt-m3mZehEnf9ZVaZ" },
+                    { title: "Episódio 16", id: "11GintVdNP2OOduHDfcpel-QihXstO6H1" },
+                    { title: "Episódio 17", id: "11cU_RztJhtIhGAiugJUm28DWI6K-Axlu" },
+                    { title: "Episódio 18", id: "1mr-FAoP52epUpek6E181tZbW55E70-Zm" },
+                    { title: "Episódio 19", id: "16jkqv5Op-Rx_9JUKQAep7hrPBRwRmr5L" },
+                    { title: "Episódio 20", id: "18RVz_B7IrGraS7emJcUB5AVpjUX5cXuh" },
+                    { title: "Episódio 21", id: "1Uxcswdmu3t27J85cTkxdj6l7W7Chb6Ds" },
+                    { title: "Episódio 22", id: "1of0hM-eGpnsTU2pHOZ2iJbFTrj4JpFzX" },
+                    { title: "Episódio 23", id: "1E_4QustUB6FjjeIEAPzuai7Wz1fdXr1J" },
+                    { title: "Episódio 24", id: "1AqeTParg6L0IWV7yzMpaG1UW_-QJE-HX" },
+                    { title: "Episódio 25", id: "1dEWQ-cI5HlAEiT_YWX5sTViHDczY1q_j" },
+                    { title: "Episódio 26", id: "1hu8xXUNCZRAl_bSyBsIF-Q6agLJ0MUAm" },
+                    { title: "Episódio 27", id: "1uoP8VquuNSwEP0RUuY8cJQaWBzIvU3hh" },
+                    { title: "Episódio 28", id: "1MMMniwwcHJ6Dfhnps33yHO-KdIBkWKat" },
+                    { title: "Episódio 29", id: "1RjxKeHVKRPLl5KISInH0nW5ebBQVonV1" },
+                    { title: "Episódio 30", id: "162hjtEakUdNjUo3-jMXfztnXabQcuGFs" },
+                    { title: "Episódio 31", id: "1Kpvsz2I9y1tQAxx1i9TMx16_Wy3D5qR0" },
+                    { title: "Episódio 32", id: "19R0IuOF57Y--0A2BP-3CbmEGgPsoW9Rw" },
+                    { title: "Episódio 33", id: "1FC1x3bMZZ5X1EP_5vkoBrWuwOCQTM_ED" },
+                    { title: "Episódio 34", id: "13NdVPkeruekc3DMxtEUTGZ6AHH3tk_Qf" },
+                    { title: "Episódio 35", id: "1t09H1r5NLt5GzPTuZvqbFmXuCpwX2brr" },
+                    { title: "Episódio 36", id: "1gK1BXsVv3UwldnE1wvEBKywkRWqsXlLl" },
+                    { title: "Episódio 37", id: "1rRsvRCANGNGYueytqo1zR8wC8DqT00xg" },
+                    { title: "Episódio 38", id: "15z9Mxnk4S5k4v465JwW96KGltkpfaGuO" },
+                    { title: "Episódio 39", id: "1w3wrjgMXP5EyyQoTaluc6sDGVTdk_0ER" },
+                    { title: "Episódio 40", id: "1j4YaUaqK9rFOeJSrM2xHg06XYG7iDjly" }
+                ]
+            },
+            {
+                key: "stellar",
+                name: "Stellar Transformation",
+                type: "Donghua",
+                poster: "./images/stellar.jpg",
+                desc: "6 temporadas.",
+                seasons: [
+                    {
+                        name: "Temporada 1",
+                        episodes: [
+                            { title: "Episódio 1", id: "1VBeuDbugroxtfZOZs2qgYNZ5V3TmzZRF" },
+                            { title: "Episódio 2", id: "1iCSR-VQCJbxeAdElsnAweIKZy8NEpWL8" },
+                            { title: "Episódio 3", id: "1F4kG0FP9JTwt2uwpCr7Sp5aADkqkRGPh" },
+                            { title: "Episódio 4", id: "1J1nHQ09Y795pdSEkDvuL3rGXv4FVYOZr" },
+                            { title: "Episódio 5", id: "1Tf_6VxQHotXbbejiX3HjS0WrScpqiFwF" },
+                            { title: "Episódio 6", id: "12XYZelSvOt56bqlC5m-1fczR31CIi1Bt" },
+                            { title: "Episódio 7", id: "1kERH_gX6SwCXteYrfnNUwYlrETAzOX0W" },
+                            { title: "Episódio 8", id: "1OIZfvq7Xull7oWIdissqhE_na_wzNH2T" },
+                            { title: "Episódio 9", id: "1JI6LJXdKMivYiUgH-Bob6QnQEGGQJbQj" },
+                            { title: "Episódio 10", id: "1GBv6YXuwSCM0PPlsrVb0lagKsJvV74lO" },
+                            { title: "Episódio 11", id: "1Arv19-0pDnuOu3eJr3KhoskDCVrOsZz9" },
+                            { title: "Episódio 12", id: "1mxPKVbZPvqyL9Sr4Nxxi3FbWRkmvYxBd" }
+                        ]
+                    },
+                    {
+                        name: "Temporada 2",
+                        episodes: [
+                            { title: "Episódio 1", id: "1ddxeXPg7JoAve0Ig_dFK4PtluwlWcqZz" },
+                            { title: "Episódio 2", id: "1T1NvM36Zt6M0iBTfGIvvduruFSO0wJnn" },
+                            { title: "Episódio 3", id: "1OFgTgqUHL55pfX5A2EwTwU0pkrd2WjlI" },
+                            { title: "Episódio 4", id: "1IdX51oruO-4JYa_lg_VZ0ZCzMZmwUiPh" },
+                            { title: "Episódio 5", id: "1orVi8Pndj3j5_FRLm5eCNFSL7Z_KLBf0" },
+                            { title: "Episódio 6", id: "1ClViqmL93CC5rSqhtWT-v6Z9lAqvUPdJ" },
+                            { title: "Episódio 7", id: "13KKSdKOkugIUhRYybpBi1pzNTUVu2kjN" },
+                            { title: "Episódio 8", id: "1_AFOpUO7NLQaysUJddUyBZPXemRlbnDZ" },
+                            { title: "Episódio 9", id: "1prRqBU5FRUAATlfdtQGDemuahPG3m3dR" },
+                            { title: "Episódio 10", id: "1fwWsYJISc6sUwyjjCAPgGGNjX6aZjisA" },
+                            { title: "Episódio 11", id: "1l6oGGhjekyrykpobhh3lup9yMWf0bNvd" },
+                            { title: "Episódio 12", id: "114p1I0QtE9YnAcSujGQd6yl9iLkkFJM8" }
+                        ]
+                    },
+                    {
+                        name: "Temporada 3",
+                        episodes: [
+                            { title: "Episódio 1", id: "1sNQdUwLoCUSbJHdc2nKLnAhmy9aayFUT" },
+                            { title: "Episódio 2", id: "1f8HiGTcp6AXiPSO_lV441tck7m0KMxEM" },
+                            { title: "Episódio 3", id: "1nHYl-YoAMc3Uo8TmuNZLSeqzRSCgvgQ8" },
+                            { title: "Episódio 4", id: "1TFoGBkh6rtVrbvpFKpj2lVMOkTFg0RdI" },
+                            { title: "Episódio 5", id: "1Ql7QGVAdeWrIkRzebMIO3kZdEDa_Loc-" },
+                            { title: "Episódio 6", id: "1m9YgRGYbVewO_khzafQCjkZhKZQhMS_N" },
+                            { title: "Episódio 7", id: "1G8BMpuKI03wZqTFr1ScCukLr-Xh9nD4L" },
+                            { title: "Episódio 8", id: "1hURPyH1jbvavwUhy6DkX4bHizDbFyKMz" },
+                            { title: "Episódio 9", id: "1xE_oriTh4TPXtT6KnTSGX5-TYWkx_ERN" },
+                            { title: "Episódio 10", id: "1eTxUZU9U2ibHBNXkdN2vBwzv5B77wRgW" },
+                            { title: "Episódio 11", id: "12_doOTPoXIeQbkIkdOE3BhONvQsrk2xd" },
+                            { title: "Episódio 12", id: "1fzTnMSlpyzjRw0kDb4wBngZ-uQtltWxH" }
+                        ]
+                    },
+                    {
+                        name: "Temporada 4",
+                        episodes: [
+                            { title: "Episódio 1", id: "1xcn1JEx_4o9vRS6J6xX30-toOKX7B98N" },
+                            { title: "Episódio 2", id: "1LlCfO2degeeS6xMVn1xpxBT34ra09XBH" },
+                            { title: "Episódio 3", id: "1LQZBNSnYgfpz52nTcdinpn7TBVRBXUjD" },
+                            { title: "Episódio 4", id: "1z-HYvXPJxYnPKBVhi5mjFURWZPGDVc52" },
+                            { title: "Episódio 5", id: "1vSdGmuTD96r5U0mA4NsesDkIN4HZ2zM1" },
+                            { title: "Episódio 6", id: "1FJjC34S_zagJ66PgP0vZbwcFHepsxaOQ" },
+                            { title: "Episódio 7", id: "1q-12DgEJTOVHgLOusyqLaqvm6Id-Rf-T" },
+                            { title: "Episódio 8", id: "1Fk5AW7OI6JEWm4qAj-78b144534hx6Df" },
+                            { title: "Episódio 9", id: "1Yhr4zcGIOaaBsIewTVzLqOeduNOBlqD6" },
+                            { title: "Episódio 10", id: "1UHzsdtqOupeYYBcWTrN5dGaaIv7jjtaV" },
+                            { title: "Episódio 11", id: "18mh6S87xioSn6odFlPHbVj0wKEnT9Xmx" },
+                            { title: "Episódio 12", id: "1zt_u0Yf0eHWqgVSBLpUJrtyT-N7XXHvo" },
+                            { title: "Episódio 13", id: "1MIZYFifKk9tgZddvSNt8szpuU4Uz2Qaj" },
+                            { title: "Episódio 14", id: "1VA_DcxksU-5lcTE_XhswuOrdd6zng962" },
+                            { title: "Episódio 15", id: "1wWy2DBMbuVFNrupbhQMgHQQiL_ffWpI1" },
+                            { title: "Episódio 16", id: "1DetoHmm4Lx4jpRR3TvBEWUmk5M_hX4um" }
+                        ]
+                    },
+                    {
+                        name: "Temporada 5",
+                        episodes: [
+                            { title: "Episódio 1", id: "18Fz1cl2iex2FtDCKHqdHwalXdf9fcgi_" },
+                            { title: "Episódio 2", id: "1ks0hxEQCSLDefDcK759nHVI6tZEIT1BW" },
+                            { title: "Episódio 3", id: "1RuRFG4FEiY5ZW02RwF9uQ8HnXBVkbvTa" },
+                            { title: "Episódio 4", id: "1-OfPE8IayXPcLH2JrPk1GAV60AwRdVsY" },
+                            { title: "Episódio 5", id: "1xyf4xVrL-XvE23nS8XTl8_QePpakdHzw" },
+                            { title: "Episódio 6", id: "1ZWIF1bIGm0J2YYvQFKMzAJ-N9nE2Oyc2" },
+                            { title: "Episódio 7", id: "1i5Pe8f0ods1TGzIF_0BczkOlcyo2c8M5" },
+                            { title: "Episódio 8", id: "1L4RkDZomrJv_q2s7YeuWTP_HMa4Vqe4D" },
+                            { title: "Episódio 9", id: "1tVeMh4fsIvqPNEf_V0UM8-46G9fU30rD" },
+                            { title: "Episódio 10", id: "1eWCZTSB1WOBpVk9nxP9AN54OEV2S2t6W" },
+                            { title: "Episódio 11", id: "1wZ1t0hdUGf2mwqwLQGQDYIdpZbdPakRq" },
+                            { title: "Episódio 12", id: "1HnwVbFiFTBtyb0xsyWAr-jZjQuOCwSE6" },
+                            { title: "Episódio 13", id: "10bMA0vUODQAZBPKfbkbsYX8meSIthhmA" },
+                            { title: "Episódio 14", id: "1GmhZlBZnSONxO9vVqQoGby8V9yKQvWyz" },
+                            { title: "Episódio 15", id: "1RF0rV0ndz8onXSqNJkPireoAHX_Rx1FY" },
+                            { title: "Episódio 16", id: "1NYavkonY5ayj3lTLK2DPJIXeLxHEEcsA" },
+                            { title: "Episódio 17", id: "1ktB0NcM3zUkvMBxBZhYbJZUIwln0Mh00" },
+                            { title: "Episódio 18", id: "1sdHCjOlN-w_oHbmzXwnQkmt9evW6nPIR" },
+                            { title: "Episódio 19", id: "1zrh7tT0xcerD_KiAbsHpfHOCjOB95kVE" },
+                            { title: "Episódio 20", id: "1Cy3sXf_7mKxMRjjXIFnTfnxXFrrAqnRv" },
+                            { title: "Episódio 21", id: "1PJdHsNRbtCv7FVxl77GYLhKNrCOlrCrW" },
+                            { title: "Episódio 22", id: "1WpyAORfBXUkLPZzzhI_QMnuqly-z2Akw" },
+                            { title: "Episódio 23", id: "1n-hA0cd-lfOZpTvbialH5kxVPL-VtxSh" },
+                            { title: "Episódio 24", id: "1JOxWiAGWIeoaKdYDbTLXpi_MpIW_WAP_" },
+                            { title: "Episódio 25", id: "1jBSrlVKq-VU41u_ACIZXNSFlJM-xsh00" },
+                            { title: "Episódio 26", id: "1kjTD56V6oWwlveb6Cv18T61Ji8VyvGHz" },
+                            { title: "Episódio 27", id: "1UBqGj2Br1mQnlDevubY_jmU8-LV68kQ8" },
+                            { title: "Episódio 28", id: "1jM9ewlaRUo84LSwSlwg6kSyaPXkR5EgS" }
+                        ]
+                    },
+                    {
+                        name: "Temporada 6",
+                        episodes: [
+                            { title: "Episódio 1", id: "138IJ8ACR8o48MWZUgHxcckTObZSVlRhh" },
+                            { title: "Episódio 2", id: "17kOHhD-l_NIDIrRRqZ0XGnhyCrd8T6AI" },
+                            { title: "Episódio 3", id: "1GvIf1z3cRjf5TfPGlpMKUS3kjn9CZfHn" },
+                            { title: "Episódio 4", id: "1LNedPJTW1ngOwj5fLjOoTCfJQWP8eMGw" },
+                            { title: "Episódio 5", id: "1NyEcTLm4WWJvVwYACnNR5aKCj4NyAdNf" },
+                            { title: "Episódio 6", id: "1M05DWn9ElAY1gz5mEJnIGrVDuy7Re21j" },
+                            { title: "Episódio 7", id: "1TvW64dbw-HQMKPvXndbsM9JYQJllvnnz" },
+                            { title: "Episódio 8", id: "1H7UO1KTXPCqwiUk5RFx0x-Og-18ynoDA" },
+                            { title: "Episódio 9", id: "1gXuWuefwG77NJcCcJHpZrmN2sK7nRLQ3" },
+                            { title: "Episódio 10", id: "1v6nvQhUYF79ODWpwUxbdXKWZzOKwb9a8" },
+                            { title: "Episódio 11", id: "1sNSPoa3Y9AXsZvo5VqndOuHPn4JSM4S3" },
+                            { title: "Episódio 12", id: "1tjlEXq6bWHz62rgMCLJsduHARG2pyU87" },
+                            { title: "Episódio 13", id: "1JSK0mKXkmA1qkD60B3a3JLAfr7i_ScN7" },
+                            { title: "Episódio 14", id: "1knn9f0sgAPCP4Frj3iBmtbcq5ML1hSvF" },
+                            { title: "Episódio 15", id: "1mUs54XPkv2QTLCnyVhsA_eQVwUbxoPVr" },
+                            { title: "Episódio 16", id: "1b1jeC84HCB3NnPM1wfZXE2iW06MsLDmt" },
+                            { title: "Episódio 17", id: "1UPPSMD0W3-WM_xl_TZTGzEjCgPSDpyoV" },
+                            { title: "Episódio 18", id: "1gcP_ClSBLJuDOJdeSeNPEV_-0TNfjf1i" },
+                            { title: "Episódio 19", id: "1D-d5sLzNLAhC-fePeZ9K_F6iYbsrYFYO" },
+                            { title: "Episódio 20", id: "1-pmep2Eq_D_aAo2mJi5-AWOTam2SNCd8" },
+                            { title: "Episódio 21", id: "1YUUUTrqizAxIXhdpmanZZkGb0lM4TPXa" },
+                            { title: "Episódio 22", id: "1owSKgOOkXyboitDy6Zi6ZdcSxQWlSfYU" },
+                            { title: "Episódio 23", id: "1CF-XMKmrFfYuN38gsYqwCjJEDpqO8tWc" },
+                            { title: "Episódio 24", id: "1DvwNkpS8WgffkYWpfaFbkTAWQb37XomR" },
+                            { title: "Episódio 25", id: "1ABnZw5VvMa5MCrHI2Dj3uW9CLSyBHnYP" },
+                            { title: "Episódio 26", id: "1cFSskngLlEdxiIb1KX0v7sFZSowu-sKl" },
+                            { title: "Episódio 27", id: "1ahHLkmrQIf2TCWVK-exTwesJMV_CWe3X" },
+                            { title: "Episódio 28", id: "1GN2KGQKbEIF1dAoN_fd5pSO90yHZMQTv" }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                key: "tfg",
+                name: "Tomb of Fallen Gods",
+                type: "Donghua",
+                poster: "./images/tfg.jpg",
+                desc: "Cultivo e batalhas épicas. Múltiplas temporadas.",
+                seasons: [
+                    {
+                        name: "Temporada 2",
+                        episodes: [
+                            { title: "Episódio 18", id: "1cUioQcyr0-bNhgzytFSoU9-Z_UXeBDiN" },
+                            { title: "Episódio 19", id: "1ThJ98QkrfAYttgwiJZ9sVPfmynRaQM4M" },
+                            { title: "Episódio 20", id: "1cP1YbZOfGxS24XIhMI5CvMCWxFUIV-Hq" },
+                            { title: "Episódio 21", id: "1IiTK2tx97FhaPh5WTwiY2XP_Q87lKCf4" },
+                            { title: "Episódio 22", id: "1PvTmVZDWzKA_8v1BL-PoaKlC0rO23Qiy" },
+                            { title: "Episódio 23", id: "1YjYC7f8VkALmuzaT4FjToYoW67Hxh_CO" },
+                            { title: "Episódio 24", id: "1durubadsdbXHIOn30wHQ_YSgDit6NR5A" },
+                            { title: "Episódio 25", id: "1RXWxJaHKC-Ny5zsbum0xrnNeCedcstiC" },
+                            { title: "Episódio 26", id: "1DOo-sboBKGL3Lf7SY5xDnewSdTzoKsTD" },
+                            { title: "Episódio 27", id: "1mEebjcgC-A_Fd2VJxV36eRqgG1Zt9aTX" }
+                        ]
+                    },
+                    {
+                        name: "Temporada 3",
+                        episodes: [
+                            { title: "Episódio 1", id: "1zqbjyC9pz4-qbImwHUC9tEucMfHheDEP" },
+                            { title: "Episódio 2", id: "171HvT5ZC-41zlrCCxmHS9X8Szukrqoku" },
+                            { title: "Episódio 3", id: "19OoaxuT26i6zK0AecUpOJsDRTOH0UVED" },
+                            { title: "Episódio 4", id: "1Nb1nfnPrqx2WLgJWhf4o_uoY4qzNO26x" },
+                            { title: "Episódio 5", id: "17mxTisgAxrgCHlRWLRgqfa3GeJgEjACZ" },
+                            { title: "Episódio 6", id: "1o6ZaBHZ5jyHz8OcST03ZIrk9sXqtfwfH" },
+                            { title: "Episódio 7", id: "14OtDLDMos5UXgGhvFcGyouSJgtQSRSqd" },
+                            { title: "Episódio 8", id: "10UIz_VagOTf5zJCh4YKJ_moFcO_-cauU" },
+                            { title: "Episódio 9", id: "1_LAo7lkbp1fObf71Ugv7KjUlHISrk86o" },
+                            { title: "Episódio 10", id: "1NX0hWxp6vXQR8asg9mjRbuLqN9sidrVz" },
+                            { title: "Episódio 11", id: "1diTpgEk-hCOFCntVE0-Q-QUH4kkOehp2" },
+                            { title: "Episódio 12", id: "1K7MtkblCXnTZLV1-v8AX-5GbrUjy2asH" },
+                            { title: "Episódio 13", id: "17q9I1qf2d3vZfnC6BWXX6dDqebqq2CJF" },
+                            { title: "Episódio 14", id: "1-lZ6A3BKAWGwSE59x4Gu2WCIhL0PDqSz" },
+                            { title: "Episódio 15", id: "1_sEtV5JayOtQ9IwIr2Yy-AK_onZJqBDQ" },
+                            { title: "Episódio 16", id: "17WPwRavCHILOTLkey8UBvXPVUqr6g_sj" },
+                            { title: "Episódio 17", id: "1yqqRq4UoPduyVVlv8MrZGQ0XT_8drEYP" },
+                            { title: "Episódio 18", id: "1cG6SAS7Gz41mRUg72jF_ZTwXhs-WWzE-" },
+                            { title: "Episódio 19", id: "1I6bR0N8zvS2pf7PmFv3sl456U7oZMuVt" },
+                            { title: "Episódio 20", id: "1iCWyYvzNH7_94NKKYDDJc9EDagf0AZ5V" },
+                            { title: "Episódio 21", id: "1q1KwyH1vBryq7FffOAlMlVbMK5tqxhyk" },
+                            { title: "Episódio 22", id: "1TjUdjTVxU3jNSLwpkmPfbyyVNeW2NCqE" },
+                            { title: "Episódio 23", id: "11y5sIQG6UqdvOWGUIxxC0eGaKzeM2h9G" },
+                            { title: "Episódio 24", id: "1ctqygh64rQq-HunuLCsyf2Or-PH-WfeL" },
+                            { title: "Episódio 25", id: "18ZgcBQitaidorckygxrCypUZ_fIMOv5L" },
+                            { title: "Episódio 26", id: "1cdp1rFwhqTF-l3oRxX0ESog5H4iWjHp8" },
+                            { title: "Episódio 27", id: "1WF580LNXXK2av0WcZ7blEqjsYEFHgMrL" },
+                            { title: "Episódio 28", id: "1GYsSefbB0JnC2dZIQ3Lz597ztkvvmyU-" },
+                            { title: "Episódio 29", id: "1HptVW27JxgKIdNIbCdEpWZVzGbZbaMCm" },
+                            { title: "Episódio 30", id: "1_JA9PhVThkJcxZQLE6c61AbvefWWAyqr" },
+                            { title: "Episódio 31", id: "1BmbQizZxbJD20wsZZYU-tD7xRF1K8LX_" },
+                            { title: "Episódio 32", id: "1lsVR_AJKj4Iez0KYj-eq6UfJZRiPlWOm" },
+                            { title: "Episódio 33", id: "12PAAnv4xH4NfOU98NtgI-u__R0Z6BLuO" },
+                            { title: "Episódio 34", id: "1euQyJ6JsLzK7tftQi1vDqtqfvakigpgY" },
+                            { title: "Episódio 35", id: "1z0LbFT1bavjokrcQfF49hsfIv4oj-h73" },
+                            { title: "Episódio 36", id: "1dq9bTkKOG_3BnPo4YC8z6VCmgxfQB3gH" },
+                            { title: "Episódio 37", id: "17xYgHBn6WutVpl1_oxextB9BZuQy8HKA" },
+                            { title: "Episódio 38", id: "1U5aYtDvzG_RB4ARe85fhf2P8xMHS5mtG" },
+                            { title: "Episódio 39", id: "1pqHmYIwbBbM8GPTVnMc7GOjtC9oL9l28" }
+                        ]
+                    }
+                ]
+            }
+        ];
+const $=(id)=>document.getElementById(id);
+const homeView=$('homeView'),episodesView=$('episodesView'),donghuaRow=$('donghuaRow'),globalSearch=$('globalSearch'),homeBtn=$('homeBtn'),favoritesBtn=$('favoritesBtn'),backHome=$('backHome'),episodeSearch=$('episodeSearch'),episodesGrid=$('episodesGrid'),seasonTabs=$('seasonTabs');
+const heroBg=$('heroBg'),heroTitle=$('heroTitle'),heroMeta=$('heroMeta'),heroDesc=$('heroDesc'),heroContinue=$('heroContinue'),heroEpisodes=$('heroEpisodes'),heroFav=$('heroFav'),pillCount=$('pillCount'),rowTitle=$('rowTitle'),continueHome=$('continueHome');
+const seriesTitle=$('seriesTitle'),seriesPill=$('seriesPill'),seriesHeaderBg=$('seriesHeaderBg'),seriesPoster=$('seriesPoster'),seriesName=$('seriesName'),seriesDesc=$('seriesDesc'),seriesMeta=$('seriesMeta'),playFirstBtn=$('playFirstBtn'),seriesFavBtn=$('seriesFavBtn'),continueSeries=$('continueSeries');
+const playerWrap=$('playerWrap'),frame=$('frame'),controls=$('playerControls'),backBtn=$('backBtn'),nextBtn=$('nextBtn'),markWatchedBtn=$('markWatchedBtn'),playerTitle=$('playerTitle'),toast=$('toast');
+let currentSeriesKey=LIBRARY[0]?.key||null,currentSeasonIndex=null,currentEpisodeIndex=null,currentMode='all',controlsTimer=null,autoplayTimer=null;const DEFAULT_EP_MINUTES=21,DURATIONS={};
+const store={get(k,f){try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},set(k,v){localStorage.setItem(k,JSON.stringify(v))}};const favs=()=>store.get('minhatv:favorites',[]),progress=()=>store.get('minhatv:progress',{}),watched=()=>store.get('minhatv:watched',{});
+function getSeries(key){return LIBRARY.find(s=>s.key===key)}function hasSeasons(s){return Array.isArray(s?.seasons)&&s.seasons.length>0}function getAllEpisodes(s){if(!s)return[];return hasSeasons(s)?s.seasons.flatMap((season,si)=>season.episodes.map((ep,idx)=>({...ep,seasonIndex:si,idx,seasonName:season.name}))):(s.episodes||[]).map((ep,idx)=>({...ep,seasonIndex:null,idx,seasonName:null}))}function getTotalEpisodes(s){return getAllEpisodes(s).length}function firstPlayable(s){const p=progress()[s.key];if(p)return p;const ep=getAllEpisodes(s)[0];return ep?{seriesKey:s.key,seasonIndex:ep.seasonIndex,idx:ep.idx}:null}function epKey(seriesKey,seasonIndex,idx){return `${seriesKey}:${seasonIndex??'single'}:${idx}`}function isFav(key){return favs().includes(key)}function getEpisode(seriesKey,seasonIndex,idx){const s=getSeries(seriesKey);if(!s)return null;return hasSeasons(s)&&seasonIndex!==null?s.seasons[seasonIndex]?.episodes[idx]:s.episodes?.[idx]}function escapeHtml(s){return(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function showToast(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)}function tag(t){return `<span class="pill">${escapeHtml(String(t))}</span>`}
+function toggleFav(key){let f=favs();f=f.includes(key)?f.filter(x=>x!==key):[...f,key];store.set('minhatv:favorites',f);showToast(f.includes(key)?'Adicionado aos favoritos':'Removido dos favoritos');renderAll()}function markWatched(seriesKey=currentSeriesKey,seasonIndex=currentSeasonIndex,idx=currentEpisodeIndex){if(idx===null||idx===undefined)return;const w=watched();w[epKey(seriesKey,seasonIndex,idx)]=true;store.set('minhatv:watched',w);showToast('Episódio marcado como visto');if(!episodesView.classList.contains('hide'))renderEpisodes()}function saveProgress(seriesKey,seasonIndex,idx){const p=progress();p[seriesKey]={seriesKey,seasonIndex,idx,at:Date.now()};store.set('minhatv:progress',p)}
+function setHero(key){const s=getSeries(key);if(!s)return;currentSeriesKey=key;heroBg.style.backgroundImage=`url('${s.poster}')`;heroTitle.textContent=s.name;heroDesc.textContent=s.desc||'Clique para abrir e escolher episódios.';heroMeta.innerHTML=tag(s.type)+tag(`${getTotalEpisodes(s)} eps`)+(hasSeasons(s)?tag(`${s.seasons.length} temporadas`):'')+(isFav(s.key)?tag('⭐ favorito'):'');heroEpisodes.onclick=()=>openEpisodes(s.key);heroContinue.onclick=()=>{const p=firstPlayable(s);if(p)playEpisode(p.seriesKey,p.idx,p.seasonIndex)};heroFav.textContent=isFav(s.key)?'⭐ Favorito':'☆ Favoritar';heroFav.onclick=()=>toggleFav(s.key)}
+function renderHome(){homeView.classList.remove('hide');episodesView.classList.add('hide');playerWrap.style.display='none';const q=(globalSearch.value||'').trim().toLowerCase();let list=LIBRARY.filter(s=>{if(currentMode==='favorites'&&!isFav(s.key))return false;if(!q)return true;return s.name.toLowerCase().includes(q)||getAllEpisodes(s).some(ep=>(ep.title+' '+(ep.seasonName||'')).toLowerCase().includes(q))});rowTitle.textContent=currentMode==='favorites'?'Favoritos':'Donghuas';pillCount.textContent=`${list.length} item(ns)`;donghuaRow.innerHTML='';if(!list.length){donghuaRow.innerHTML='<div class="empty">Nada encontrado. Use a busca ou adicione favoritos com ⭐.</div>';continueHome.innerHTML='';return}if(!list.some(s=>s.key===currentSeriesKey))currentSeriesKey=list[0].key;setHero(currentSeriesKey);list.forEach(s=>{const p=progress()[s.key],percent=p?70:0;const div=document.createElement('article');div.className='card focusable';div.tabIndex=0;div.dataset.key=s.key;div.innerHTML=`<span class="previewBadge">Preview</span><button class="fav ${isFav(s.key)?'on':''}" title="Favoritar">${isFav(s.key)?'★':'☆'}</button><img class="poster" src="${s.poster}" alt="${escapeHtml(s.name)}" onerror="this.src='images/placeholder.jpg'"><div class="cardGrad"></div><div class="cardPad"><div class="cardTitle">${escapeHtml(s.name)}</div><div class="cardMeta"><span>${escapeHtml(s.type)}</span><span>•</span><span>${getTotalEpisodes(s)} eps</span>${hasSeasons(s)?`<span>•</span><span>${s.seasons.length} temp.</span>`:''}</div><div class="progressTrack"><div class="progressFill" style="width:${percent}%"></div></div></div>`;div.onmouseenter=()=>setHero(s.key);div.onfocus=()=>setHero(s.key);div.onclick=(e)=>{if(e.target.classList.contains('fav')){e.stopPropagation();toggleFav(s.key);return}openEpisodes(s.key)};donghuaRow.appendChild(div)});renderContinuePanels();updateFocusable();history.replaceState({view:'home'},'',location.pathname)}
+function renderContinuePanels(){const p=progress(),entries=Object.values(p).sort((a,b)=>(b.at||0)-(a.at||0));function panel(entry){const s=getSeries(entry.seriesKey),ep=getEpisode(entry.seriesKey,entry.seasonIndex,entry.idx);if(!s||!ep)return'';const sn=entry.seasonIndex!==null?s.seasons[entry.seasonIndex].name:'';return `<div class="continuePanel"><img src="${s.poster}" onerror="this.src='images/placeholder.jpg'" alt=""><div><b>Continuar: ${escapeHtml(s.name)}</b><span>${escapeHtml(sn)} ${escapeHtml(ep.title)}</span></div><button class="btn primary focusable" onclick="playEpisode('${s.key}',${entry.idx},${entry.seasonIndex===null?'null':entry.seasonIndex})">▶ Continuar</button></div>`}continueHome.innerHTML=entries[0]?panel(entries[0]):'';const curr=progress()[currentSeriesKey];continueSeries.innerHTML=curr?panel(curr):''}
+function openHome(push=true){currentSeasonIndex=null;currentEpisodeIndex=null;currentMode='all';renderHome();if(push)history.pushState({view:'home'},'',location.pathname)}function openEpisodes(key,seasonIndex=null,push=true){const s=getSeries(key);if(!s)return;currentSeriesKey=key;currentSeasonIndex=seasonIndex;currentEpisodeIndex=null;homeView.classList.add('hide');episodesView.classList.remove('hide');playerWrap.style.display='none';seriesTitle.textContent=s.name;seriesName.textContent=s.name;seriesDesc.textContent=s.desc||'';seriesPoster.src=s.poster;seriesHeaderBg.style.backgroundImage=`url('${s.poster}')`;seriesMeta.innerHTML=tag(s.type)+tag(`${getTotalEpisodes(s)} eps`)+(hasSeasons(s)?tag(`${s.seasons.length} temporadas`):'');seriesFavBtn.textContent=isFav(s.key)?'⭐ Favorito':'☆ Favoritar';seriesFavBtn.onclick=()=>toggleFav(s.key);playFirstBtn.onclick=()=>{const p=firstPlayable(s);if(p)playEpisode(p.seriesKey,p.idx,p.seasonIndex)};episodeSearch.value='';renderEpisodes();renderContinuePanels();window.scrollTo({top:0,behavior:'smooth'});if(push)history.pushState({view:'episodes',key,seasonIndex},'',`#/${key}${seasonIndex!==null?'/s'+seasonIndex:''}`)}function openSeason(si,push=true){currentSeasonIndex=si;renderEpisodes();if(push)history.pushState({view:'episodes',key:currentSeriesKey,seasonIndex:si},'',`#/${currentSeriesKey}/s${si}`)}
+function renderEpisodes(){const s=getSeries(currentSeriesKey);if(!s)return;const q=(episodeSearch.value||'').trim().toLowerCase();episodesGrid.innerHTML='';seasonTabs.innerHTML='';if(hasSeasons(s)){if(currentSeasonIndex===null)currentSeasonIndex=0;s.seasons.forEach((season,idx)=>{const b=document.createElement('button');b.className='seasonTab focusable '+(idx===currentSeasonIndex?'active':'');b.textContent=`${season.name} (${season.episodes.length})`;b.onclick=()=>openSeason(idx);seasonTabs.appendChild(b)})}const eps=hasSeasons(s)?s.seasons[currentSeasonIndex].episodes:s.episodes;seriesPill.textContent=hasSeasons(s)?`${s.seasons[currentSeasonIndex].name} • ${eps.length} eps`:`${eps.length} eps`;const w=watched();eps.map((ep,idx)=>({...ep,idx})).filter(ep=>!q||ep.title.toLowerCase().includes(q)).forEach(ep=>{const key=epKey(s.key,currentSeasonIndex,ep.idx);const div=document.createElement('button');div.className='ep focusable '+(w[key]?'watched':'');div.innerHTML=`<b>${escapeHtml(ep.title)}</b><small>${w[key]?'Assistido':'Clique para assistir'} • Enter/OK</small>`;div.onclick=()=>playEpisode(s.key,ep.idx,currentSeasonIndex);episodesGrid.appendChild(div)});if(!episodesGrid.children.length)episodesGrid.innerHTML='<div class="empty">Nenhum episódio encontrado.</div>';updateFocusable()}
+function tryFullscreen(){try{if(playerWrap.requestFullscreen)playerWrap.requestFullscreen()}catch{}}function playEpisode(seriesKey,idx,seasonIndex=null,push=true){const s=getSeries(seriesKey),ep=getEpisode(seriesKey,seasonIndex,idx);if(!s||!ep)return;currentSeriesKey=seriesKey;currentSeasonIndex=seasonIndex;currentEpisodeIndex=idx;saveProgress(seriesKey,seasonIndex,idx);playerWrap.style.display='block';homeView.classList.add('hide');episodesView.classList.add('hide');frame.src=`https://drive.google.com/file/d/${ep.id}/preview`;playerTitle.textContent=`${s.name} — ${seasonIndex!==null?s.seasons[seasonIndex].name+' • ':''}${ep.title}`;setTimeout(tryFullscreen,250);setTimeout(showControls,300);scheduleAutoplay(seriesKey,idx,seasonIndex);if(push)history.pushState({view:'player',key:seriesKey,seasonIndex,idx},'',`#/${seriesKey}/play/${seasonIndex??'single'}/${idx}`)}function closePlayer(push=true){frame.src='';playerWrap.style.display='none';clearAutoplay();if(document.fullscreenElement){try{document.exitFullscreen()}catch{}}openEpisodes(currentSeriesKey,currentSeasonIndex,push)}function nextEpisode(){nextEpisodeAuto(currentSeriesKey,currentEpisodeIndex,currentSeasonIndex)}function scheduleAutoplay(seriesKey,idx,seasonIndex=null){clearAutoplay();autoplayTimer=setTimeout(()=>nextEpisodeAuto(seriesKey,idx,seasonIndex),(DURATIONS[seriesKey]??DEFAULT_EP_MINUTES)*60*1000)}function clearAutoplay(){if(autoplayTimer)clearTimeout(autoplayTimer);autoplayTimer=null}function nextEpisodeAuto(seriesKey,idx,seasonIndex=null){const s=getSeries(seriesKey);if(!s)return;markWatched(seriesKey,seasonIndex,idx);if(hasSeasons(s)&&seasonIndex!==null){let ni=idx+1,ns=seasonIndex;if(ni>=s.seasons[ns].episodes.length){ns++;ni=0;if(ns>=s.seasons.length)ns=0}playEpisode(seriesKey,ni,ns);return}playEpisode(seriesKey,(idx+1)%s.episodes.length,null)}function showControls(){controls.classList.add('show');clearTimeout(controlsTimer);controlsTimer=setTimeout(()=>controls.classList.remove('show'),3300)}
+nextBtn.onclick=nextEpisode;markWatchedBtn.onclick=()=>markWatched();backBtn.onclick=()=>closePlayer();homeBtn.onclick=()=>openHome();favoritesBtn.onclick=()=>{currentMode=currentMode==='favorites'?'all':'favorites';renderHome();favoritesBtn.textContent=currentMode==='favorites'?'📚 Todos':'⭐ Favoritos'};backHome.onclick=()=>openHome();globalSearch.oninput=renderHome;episodeSearch.oninput=renderEpisodes;document.addEventListener('mousemove',showControls);document.addEventListener('touchstart',showControls);playerWrap.addEventListener('click',e=>{if(e.target===playerWrap)showControls()});document.addEventListener('keydown',e=>{showControls();if(e.key==='Escape'||e.key==='Backspace'){if(playerWrap.style.display==='block'){e.preventDefault();closePlayer()}}if(playerWrap.style.display==='block'&&e.key==='ArrowRight'){e.preventDefault();nextEpisode()}handleRemoteKeys(e)});window.addEventListener('popstate',e=>{const st=e.state;if(!st){renderHome();return}if(st.view==='home')renderHome();if(st.view==='episodes')openEpisodes(st.key,st.seasonIndex,false);if(st.view==='player')playEpisode(st.key,st.idx,st.seasonIndex,false)});
+let focusables=[],focusIndex=0;function updateFocusable(){focusables=[...document.querySelectorAll('.focusable:not(.hide)')].filter(el=>el.offsetParent!==null)}function setFocus(i){updateFocusable();if(!focusables.length)return;focusIndex=(i+focusables.length)%focusables.length;focusables.forEach(x=>x.classList.remove('focused'));const el=focusables[focusIndex];el.classList.add('focused');el.focus({preventScroll:false});if(el.dataset.key)setHero(el.dataset.key)}function handleRemoteKeys(e){if(['ArrowDown','ArrowRight','ArrowUp','ArrowLeft'].includes(e.key)){e.preventDefault();setFocus(focusIndex+((e.key==='ArrowDown'||e.key==='ArrowRight')?1:-1))}if(e.key==='Enter'){const el=document.activeElement;if(el&&el.classList.contains('focusable'))el.click()}}function renderAll(){if(episodesView.classList.contains('hide'))renderHome();else openEpisodes(currentSeriesKey,currentSeasonIndex,false)}renderHome();setTimeout(()=>setFocus(0),300);
+</script>
+</body>
+</html>

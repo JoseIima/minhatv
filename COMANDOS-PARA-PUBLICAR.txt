@@ -1,0 +1,36 @@
+PASSO A PASSO PARA PUBLICAR NO GITHUB
+
+1) Baixe e extraia este ZIP.
+2) Abra a pasta extraída no VS Code.
+3) Copie suas imagens finais para a pasta images, mantendo os nomes:
+   armji.jpg
+   siliang.jpg
+   wddg.jpg
+   atg.jpg
+   loyc.jpg
+   stellar.jpg
+   tfg.jpg
+
+4) Abra o PowerShell dentro da pasta extraída e rode:
+
+git init
+git branch -M main
+git remote add origin https://github.com/JoseIima/minhatv.git
+git add index.html .gitignore README.md COMANDOS-PARA-PUBLICAR.txt images
+git commit -m "Atualiza Minha TV completo"
+git push -u origin main
+
+Se aparecer erro dizendo que já existe conteúdo remoto, rode:
+
+git pull origin main --allow-unrelated-histories
+git push -u origin main
+
+Se quiser sobrescrever o repositório remoto com este pacote limpo, use com cuidado:
+
+git push -u origin main --force
+
+5) Ative o GitHub Pages:
+   GitHub > repositório minhatv > Settings > Pages > Branch main > /root > Save
+
+6) Abra o site com cache novo:
+   https://joseiima.github.io/minhatv/?v=novo
