@@ -1,26 +1,815 @@
 <!doctype html>
 <html lang="pt-br">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="theme-color" content="#05050a" />
-<title>Minha TV</title>
-<style>
-:root{--bg:#05050a;--card:#12121d;--card2:#191927;--txt:#fff;--muted:rgba(255,255,255,.72);--muted2:rgba(255,255,255,.52);--line:rgba(255,255,255,.12);--red:#e50914;--red2:#ff2d3a;--gold:#ffcc66;--green:#34d399;--shadow:0 22px 70px rgba(0,0,0,.62);--r:20px;--focus:0 0 0 3px rgba(229,9,20,.42),0 0 26px rgba(229,9,20,.45);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(1000px 520px at 15% -10%,rgba(229,9,20,.18),transparent 60%),radial-gradient(900px 520px at 95% 5%,rgba(76,29,149,.22),transparent 65%),linear-gradient(180deg,#05050a,#0b0b12 46%,#05050a);color:var(--txt);min-height:100vh;overflow-x:hidden}button,input{font:inherit}button{color:inherit}.hide{display:none!important}.topbar{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(5,5,10,.96),rgba(5,5,10,.72));border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(14px)}.topinner{max-width:1440px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.logo{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:.2px;font-size:19px;white-space:nowrap}.logoMark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--red),#9f1239);display:grid;place-items:center;box-shadow:0 0 34px rgba(229,9,20,.45)}.logoMark:before{content:"▶";font-size:13px;margin-left:2px}.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.07);color:var(--muted);font-size:12px;font-weight:800}.spacer{flex:1}.navActions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.searchBox{position:relative;min-width:min(480px,72vw)}.searchBox span{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.65}input{width:100%;background:rgba(0,0,0,.34);border:1px solid var(--line);color:#fff;padding:12px 14px 12px 38px;border-radius:14px;outline:none}input:focus,.btn:focus-visible,.card:focus-visible,.ep:focus-visible,.seasonTab:focus-visible{box-shadow:var(--focus);border-color:rgba(229,9,20,.75)}.btn{border:1px solid var(--line);background:rgba(255,255,255,.09);border-radius:14px;padding:11px 14px;cursor:pointer;font-weight:900;transition:.18s transform,.18s background,.18s border-color;user-select:none;text-decoration:none;display:inline-flex;align-items:center;gap:8px}.btn:hover,.btn.focused{transform:translateY(-2px);background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.24)}.primary{background:linear-gradient(135deg,var(--red),#b20710);border-color:rgba(229,9,20,.68)}.primary:hover,.primary.focused{background:linear-gradient(135deg,var(--red2),var(--red));box-shadow:0 18px 44px rgba(229,9,20,.28)}.ghost{background:rgba(0,0,0,.28)}.wrap{max-width:1440px;margin:0 auto;padding:18px}.hero{position:relative;min-height:490px;border-radius:var(--r);overflow:hidden;border:1px solid rgba(255,255,255,.09);box-shadow:var(--shadow);isolation:isolate;background:#111}.heroBg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04);filter:saturate(1.05) contrast(1.05)}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.52) 42%,rgba(0,0,0,.12) 72%,rgba(0,0,0,.05)),linear-gradient(0deg,rgba(5,5,10,.92) 0%,rgba(5,5,10,.34) 45%,rgba(5,5,10,.1))}.heroContent{position:relative;z-index:1;padding:54px 34px;max-width:760px;min-height:490px;display:flex;flex-direction:column;justify-content:flex-end;gap:14px}.eyebrow{display:flex;gap:8px;flex-wrap:wrap}.heroTitle{font-size:clamp(34px,6vw,70px);line-height:.96;font-weight:1000;letter-spacing:-1.4px;text-shadow:0 12px 45px #000}.heroDesc{color:var(--muted);font-size:16px;line-height:1.5;max-width:680px}.heroActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:5px}.hint{color:var(--muted2);font-size:13px;margin-top:5px}.sectionTitle{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:26px 0 12px}.sectionTitle h2{margin:0;font-size:22px;letter-spacing:-.3px}.sectionTitle small{color:var(--muted2);font-weight:700}.row{display:flex;gap:14px;overflow-x:auto;padding:2px 4px 18px;scroll-padding:18px}.row::-webkit-scrollbar{height:10px}.row::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px}.card{position:relative;min-width:218px;width:218px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,var(--card2),var(--card));cursor:pointer;transition:.18s transform,.18s box-shadow,.18s border-color;outline:none}.card:hover,.card.focused{transform:translateY(-6px) scale(1.035);box-shadow:0 22px 60px rgba(0,0,0,.72);border-color:rgba(255,255,255,.26);z-index:5}.poster{width:100%;height:306px;display:block;object-fit:cover;background:#111}.cardGrad{position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(0deg,rgba(0,0,0,.88),transparent);pointer-events:none}.fav{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:999px;display:grid;place-items:center;background:rgba(0,0,0,.56);border:1px solid rgba(255,255,255,.2);font-size:18px;z-index:2}.fav.on{color:var(--gold)}.previewBadge{position:absolute;top:10px;left:10px;background:rgba(229,9,20,.92);border-radius:999px;padding:6px 9px;font-size:11px;font-weight:950;z-index:2;opacity:0;transform:translateY(-4px);transition:.18s}.card:hover .previewBadge,.card.focused .previewBadge{opacity:1;transform:none}.cardPad{position:relative;padding:11px 12px 14px}.cardTitle{font-weight:950;font-size:14px;line-height:1.18}.cardMeta{margin-top:8px;color:var(--muted2);font-size:12px;display:flex;gap:7px;flex-wrap:wrap}.progressTrack{height:5px;background:rgba(255,255,255,.14);border-radius:999px;margin-top:10px;overflow:hidden}.progressFill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--red2));border-radius:999px}.empty{border:1px dashed rgba(255,255,255,.17);background:rgba(255,255,255,.04);border-radius:18px;padding:18px;color:var(--muted)}.crumbs{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:4px 0 14px;color:var(--muted)}.seriesHeader{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.09);border-radius:22px;min-height:230px;background:#111;margin-bottom:16px}.seriesHeaderBg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(1px) saturate(1.05);transform:scale(1.04);opacity:.55}.seriesHeader:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.86),rgba(0,0,0,.38)),linear-gradient(0deg,rgba(5,5,10,.92),transparent)}.seriesHeaderContent{position:relative;z-index:1;padding:24px;display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:end}.miniPoster{width:110px;height:156px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 45px rgba(0,0,0,.55)}.seriesName{font-size:clamp(28px,4vw,46px);line-height:1;font-weight:1000;margin-bottom:8px}.tabs{display:flex;gap:10px;overflow:auto;padding:2px 2px 14px;margin:4px 0 10px}.seasonTab{border:1px solid var(--line);background:rgba(255,255,255,.07);border-radius:999px;padding:10px 14px;font-weight:950;white-space:nowrap;cursor:pointer;outline:none}.seasonTab.active{background:linear-gradient(135deg,var(--red),#ad0610);border-color:rgba(229,9,20,.8)}.epGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}.ep{position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));border-radius:18px;padding:14px;cursor:pointer;transition:.18s transform,.18s background,.18s border-color;outline:none;min-height:105px}.ep:hover,.ep.focused{transform:translateY(-3px);background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}.ep b{display:block;font-size:15px;margin-bottom:8px}.ep small{color:var(--muted2)}.ep.watched{border-color:rgba(52,211,153,.35)}.ep.watched:after{content:"✓";position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:999px;background:rgba(52,211,153,.18);color:var(--green);display:grid;place-items:center;font-weight:1000}.continuePanel{display:grid;grid-template-columns:80px 1fr auto;gap:14px;align-items:center;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(229,9,20,.14),rgba(255,255,255,.05));border-radius:18px;padding:12px;margin:12px 0 18px}.continuePanel img{width:80px;height:110px;border-radius:12px;object-fit:cover}.continuePanel b{display:block;font-size:18px}.continuePanel span{display:block;color:var(--muted);margin-top:5px}#playerWrap{position:fixed;inset:0;background:#000;display:none;z-index:1000}iframe{width:100%;height:100%;border:0;display:block}#playerControls{position:fixed;inset:0;z-index:1010;pointer-events:none;opacity:0;transition:.22s opacity;background:linear-gradient(180deg,rgba(0,0,0,.64),transparent 24%,transparent 72%,rgba(0,0,0,.66))}#playerControls.show{opacity:1}.playerTop{position:absolute;top:18px;left:18px;right:18px;display:flex;gap:10px;align-items:center;pointer-events:auto}.playerTitle{font-weight:950;text-shadow:0 4px 22px #000}.playerBottom{position:absolute;left:18px;right:18px;bottom:22px;display:flex;gap:10px;justify-content:flex-end;pointer-events:auto}.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);opacity:0;z-index:2000;background:rgba(0,0,0,.82);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:11px 16px;box-shadow:0 18px 48px rgba(0,0,0,.55);transition:.22s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:720px){.topinner{align-items:stretch}.spacer{display:none}.searchBox{min-width:100%;order:4}.hero,.heroContent{min-height:430px}.heroContent{padding:28px 20px}.card{min-width:168px;width:168px}.poster{height:236px}.seriesHeaderContent{grid-template-columns:80px 1fr;padding:18px}.miniPoster{width:80px;height:114px}.continuePanel{grid-template-columns:60px 1fr}.continuePanel .btn{grid-column:1/-1;justify-content:center}.continuePanel img{width:60px;height:84px}}
-</style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#05050a" />
+    <title>Minha TV</title>
+    <style>
+        :root {
+            --bg: #05050a;
+            --card: #12121d;
+            --card2: #191927;
+            --txt: #fff;
+            --muted: rgba(255, 255, 255, .72);
+            --muted2: rgba(255, 255, 255, .52);
+            --line: rgba(255, 255, 255, .12);
+            --red: #e50914;
+            --red2: #ff2d3a;
+            --gold: #ffcc66;
+            --green: #34d399;
+            --shadow: 0 22px 70px rgba(0, 0, 0, .62);
+            --r: 20px;
+            --focus: 0 0 0 3px rgba(229, 9, 20, .42), 0 0 26px rgba(229, 9, 20, .45);
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(1000px 520px at 15% -10%, rgba(229, 9, 20, .18), transparent 60%), radial-gradient(900px 520px at 95% 5%, rgba(76, 29, 149, .22), transparent 65%), linear-gradient(180deg, #05050a, #0b0b12 46%, #05050a);
+            color: var(--txt);
+            min-height: 100vh;
+            overflow-x: hidden
+        }
+
+        button,
+        input {
+            font: inherit
+        }
+
+        button {
+            color: inherit
+        }
+
+        .hide {
+            display: none !important
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: linear-gradient(180deg, rgba(5, 5, 10, .96), rgba(5, 5, 10, .72));
+            border-bottom: 1px solid rgba(255, 255, 255, .07);
+            backdrop-filter: blur(14px)
+        }
+
+        .topinner {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 950;
+            letter-spacing: .2px;
+            font-size: 19px;
+            white-space: nowrap
+        }
+
+        .logoMark {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--red), #9f1239);
+            display: grid;
+            place-items: center;
+            box-shadow: 0 0 34px rgba(229, 9, 20, .45)
+        }
+
+        .logoMark:before {
+            content: "▶";
+            font-size: 13px;
+            margin-left: 2px
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .07);
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800
+        }
+
+        .spacer {
+            flex: 1
+        }
+
+        .navActions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+
+        .searchBox {
+            position: relative;
+            min-width: min(480px, 72vw)
+        }
+
+        .searchBox span {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: .65
+        }
+
+        input {
+            width: 100%;
+            background: rgba(0, 0, 0, .34);
+            border: 1px solid var(--line);
+            color: #fff;
+            padding: 12px 14px 12px 38px;
+            border-radius: 14px;
+            outline: none
+        }
+
+        input:focus,
+        .btn:focus-visible,
+        .card:focus-visible,
+        .ep:focus-visible,
+        .seasonTab:focus-visible {
+            box-shadow: var(--focus);
+            border-color: rgba(229, 9, 20, .75)
+        }
+
+        .btn {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .09);
+            border-radius: 14px;
+            padding: 11px 14px;
+            cursor: pointer;
+            font-weight: 900;
+            transition: .18s transform, .18s background, .18s border-color;
+            user-select: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .btn:hover,
+        .btn.focused {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, .15);
+            border-color: rgba(255, 255, 255, .24)
+        }
+
+        .primary {
+            background: linear-gradient(135deg, var(--red), #b20710);
+            border-color: rgba(229, 9, 20, .68)
+        }
+
+        .primary:hover,
+        .primary.focused {
+            background: linear-gradient(135deg, var(--red2), var(--red));
+            box-shadow: 0 18px 44px rgba(229, 9, 20, .28)
+        }
+
+        .ghost {
+            background: rgba(0, 0, 0, .28)
+        }
+
+        .wrap {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 18px
+        }
+
+        .hero {
+            position: relative;
+            min-height: 490px;
+            border-radius: var(--r);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .09);
+            box-shadow: var(--shadow);
+            isolation: isolate;
+            background: #111
+        }
+
+        .heroBg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.04);
+            filter: saturate(1.05) contrast(1.05)
+        }
+
+        .hero:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(0, 0, 0, .88) 0%, rgba(0, 0, 0, .52) 42%, rgba(0, 0, 0, .12) 72%, rgba(0, 0, 0, .05)), linear-gradient(0deg, rgba(5, 5, 10, .92) 0%, rgba(5, 5, 10, .34) 45%, rgba(5, 5, 10, .1))
+        }
+
+        .heroContent {
+            position: relative;
+            z-index: 1;
+            padding: 54px 34px;
+            max-width: 760px;
+            min-height: 490px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 14px
+        }
+
+        .eyebrow {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .heroTitle {
+            font-size: clamp(34px, 6vw, 70px);
+            line-height: .96;
+            font-weight: 1000;
+            letter-spacing: -1.4px;
+            text-shadow: 0 12px 45px #000
+        }
+
+        .heroDesc {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.5;
+            max-width: 680px
+        }
+
+        .heroActions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 5px
+        }
+
+        .hint {
+            color: var(--muted2);
+            font-size: 13px;
+            margin-top: 5px
+        }
+
+        .sectionTitle {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 26px 0 12px
+        }
+
+        .sectionTitle h2 {
+            margin: 0;
+            font-size: 22px;
+            letter-spacing: -.3px
+        }
+
+        .sectionTitle small {
+            color: var(--muted2);
+            font-weight: 700
+        }
+
+        .row {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            padding: 2px 4px 18px;
+            scroll-padding: 18px
+        }
+
+        .row::-webkit-scrollbar {
+            height: 10px
+        }
+
+        .row::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .14);
+            border-radius: 99px
+        }
+
+        .card {
+            position: relative;
+            min-width: 218px;
+            width: 218px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .1);
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            cursor: pointer;
+            transition: .18s transform, .18s box-shadow, .18s border-color;
+            outline: none
+        }
+
+        .card:hover,
+        .card.focused {
+            transform: translateY(-6px) scale(1.035);
+            box-shadow: 0 22px 60px rgba(0, 0, 0, .72);
+            border-color: rgba(255, 255, 255, .26);
+            z-index: 5
+        }
+
+        .poster {
+            width: 100%;
+            height: 306px;
+            display: block;
+            object-fit: cover;
+            background: #111
+        }
+
+        .cardGrad {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 55%;
+            background: linear-gradient(0deg, rgba(0, 0, 0, .88), transparent);
+            pointer-events: none
+        }
+
+        .fav {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 38px;
+            height: 38px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            background: rgba(0, 0, 0, .56);
+            border: 1px solid rgba(255, 255, 255, .2);
+            font-size: 18px;
+            z-index: 2
+        }
+
+        .fav.on {
+            color: var(--gold)
+        }
+
+        .previewBadge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(229, 9, 20, .92);
+            border-radius: 999px;
+            padding: 6px 9px;
+            font-size: 11px;
+            font-weight: 950;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: .18s
+        }
+
+        .card:hover .previewBadge,
+        .card.focused .previewBadge {
+            opacity: 1;
+            transform: none
+        }
+
+        .cardPad {
+            position: relative;
+            padding: 11px 12px 14px
+        }
+
+        .cardTitle {
+            font-weight: 950;
+            font-size: 14px;
+            line-height: 1.18
+        }
+
+        .cardMeta {
+            margin-top: 8px;
+            color: var(--muted2);
+            font-size: 12px;
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap
+        }
+
+        .progressTrack {
+            height: 5px;
+            background: rgba(255, 255, 255, .14);
+            border-radius: 999px;
+            margin-top: 10px;
+            overflow: hidden
+        }
+
+        .progressFill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--red), var(--red2));
+            border-radius: 999px
+        }
+
+        .empty {
+            border: 1px dashed rgba(255, 255, 255, .17);
+            background: rgba(255, 255, 255, .04);
+            border-radius: 18px;
+            padding: 18px;
+            color: var(--muted)
+        }
+
+        .crumbs {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin: 4px 0 14px;
+            color: var(--muted)
+        }
+
+        .seriesHeader {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .09);
+            border-radius: 22px;
+            min-height: 230px;
+            background: #111;
+            margin-bottom: 16px
+        }
+
+        .seriesHeaderBg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: blur(1px) saturate(1.05);
+            transform: scale(1.04);
+            opacity: .55
+        }
+
+        .seriesHeader:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(0, 0, 0, .86), rgba(0, 0, 0, .38)), linear-gradient(0deg, rgba(5, 5, 10, .92), transparent)
+        }
+
+        .seriesHeaderContent {
+            position: relative;
+            z-index: 1;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 18px;
+            align-items: end
+        }
+
+        .miniPoster {
+            width: 110px;
+            height: 156px;
+            border-radius: 14px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, .14);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .55)
+        }
+
+        .seriesName {
+            font-size: clamp(28px, 4vw, 46px);
+            line-height: 1;
+            font-weight: 1000;
+            margin-bottom: 8px
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            overflow: auto;
+            padding: 2px 2px 14px;
+            margin: 4px 0 10px
+        }
+
+        .seasonTab {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .07);
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-weight: 950;
+            white-space: nowrap;
+            cursor: pointer;
+            outline: none
+        }
+
+        .seasonTab.active {
+            background: linear-gradient(135deg, var(--red), #ad0610);
+            border-color: rgba(229, 9, 20, .8)
+        }
+
+        .epGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 12px
+        }
+
+        .ep {
+            position: relative;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, .1);
+            background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .04));
+            border-radius: 18px;
+            padding: 14px;
+            cursor: pointer;
+            transition: .18s transform, .18s background, .18s border-color;
+            outline: none;
+            min-height: 105px
+        }
+
+        .ep:hover,
+        .ep.focused {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, .1);
+            border-color: rgba(255, 255, 255, .25)
+        }
+
+        .ep b {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 8px
+        }
+
+        .ep small {
+            color: var(--muted2)
+        }
+
+        .ep.watched {
+            border-color: rgba(52, 211, 153, .35)
+        }
+
+        .ep.watched:after {
+            content: "✓";
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            background: rgba(52, 211, 153, .18);
+            color: var(--green);
+            display: grid;
+            place-items: center;
+            font-weight: 1000
+        }
+
+        .continuePanel {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 14px;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: linear-gradient(135deg, rgba(229, 9, 20, .14), rgba(255, 255, 255, .05));
+            border-radius: 18px;
+            padding: 12px;
+            margin: 12px 0 18px
+        }
+
+        .continuePanel img {
+            width: 80px;
+            height: 110px;
+            border-radius: 12px;
+            object-fit: cover
+        }
+
+        .continuePanel b {
+            display: block;
+            font-size: 18px
+        }
+
+        .continuePanel span {
+            display: block;
+            color: var(--muted);
+            margin-top: 5px
+        }
+
+        #playerWrap {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: none;
+            z-index: 1000
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block
+        }
+
+        #playerControls {
+            position: fixed;
+            inset: 0;
+            z-index: 1010;
+            pointer-events: none;
+            opacity: 0;
+            transition: .22s opacity;
+            background: linear-gradient(180deg, rgba(0, 0, 0, .64), transparent 24%, transparent 72%, rgba(0, 0, 0, .66))
+        }
+
+        #playerControls.show {
+            opacity: 1
+        }
+
+        .playerTop {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            right: 18px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            pointer-events: auto
+        }
+
+        .playerTitle {
+            font-weight: 950;
+            text-shadow: 0 4px 22px #000
+        }
+
+        .playerBottom {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 22px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            pointer-events: auto
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            transform: translateX(-50%) translateY(20px);
+            opacity: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, .82);
+            border: 1px solid rgba(255, 255, 255, .14);
+            border-radius: 999px;
+            padding: 11px 16px;
+            box-shadow: 0 18px 48px rgba(0, 0, 0, .55);
+            transition: .22s
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0)
+        }
+
+        @media(max-width:720px) {
+            .topinner {
+                align-items: stretch
+            }
+
+            .spacer {
+                display: none
+            }
+
+            .searchBox {
+                min-width: 100%;
+                order: 4
+            }
+
+            .hero,
+            .heroContent {
+                min-height: 430px
+            }
+
+            .heroContent {
+                padding: 28px 20px
+            }
+
+            .card {
+                min-width: 168px;
+                width: 168px
+            }
+
+            .poster {
+                height: 236px
+            }
+
+            .seriesHeaderContent {
+                grid-template-columns: 80px 1fr;
+                padding: 18px
+            }
+
+            .miniPoster {
+                width: 80px;
+                height: 114px
+            }
+
+            .continuePanel {
+                grid-template-columns: 60px 1fr
+            }
+
+            .continuePanel .btn {
+                grid-column: 1/-1;
+                justify-content: center
+            }
+
+            .continuePanel img {
+                width: 60px;
+                height: 84px
+            }
+        }
+    </style>
 </head>
+
 <body>
-<header class="topbar"><div class="topinner"><div class="logo"><span class="logoMark"></span>Minha TV <span class="pill" id="pillCount">—</span></div><div class="spacer"></div><div class="navActions"><button class="btn ghost focusable" id="homeBtn">🏠 Home</button><button class="btn ghost focusable" id="favoritesBtn">⭐ Favoritos</button></div><label class="searchBox"><span>🔎</span><input id="globalSearch" class="focusable" placeholder="Buscar donghua ou episódio..." /></label></div></header>
-<main class="wrap"><section id="homeView"><div class="hero" id="hero"><div class="heroBg" id="heroBg"></div><div class="heroContent"><div class="eyebrow" id="heroMeta"></div><div class="heroTitle" id="heroTitle">Minha Biblioteca</div><div class="heroDesc" id="heroDesc">Escolha um donghua e assista direto na TV.</div><div class="heroActions"><button class="btn primary focusable" id="heroContinue">▶ Continuar</button><button class="btn focusable" id="heroEpisodes">📺 Ver episódios</button><button class="btn ghost focusable" id="heroFav">⭐ Favoritar</button></div><div class="hint">TV: use as setas para navegar, Enter/OK para abrir e Voltar/Esc para sair do player.</div></div></div><div id="continueHome"></div><div class="sectionTitle"><h2 id="rowTitle">Donghuas</h2><small>Hover/seleção mostra detalhes no banner</small></div><div class="row" id="donghuaRow"></div></section><section id="episodesView" class="hide"><div class="crumbs"><button class="btn ghost focusable" id="backHome">⬅ Voltar</button><span>Donghua:</span><b id="seriesTitle">—</b><span class="pill" id="seriesPill">—</span></div><div class="seriesHeader"><div class="seriesHeaderBg" id="seriesHeaderBg"></div><div class="seriesHeaderContent"><img class="miniPoster" id="seriesPoster" alt=""><div><div class="eyebrow" id="seriesMeta"></div><div class="seriesName" id="seriesName">—</div><div class="heroDesc" id="seriesDesc">—</div><div class="heroActions"><button class="btn primary focusable" id="playFirstBtn">▶ Assistir</button><button class="btn ghost focusable" id="seriesFavBtn">⭐ Favoritar</button></div></div></div></div><div id="continueSeries"></div><label class="searchBox" style="display:block;max-width:640px;margin-bottom:12px"><span>🔎</span><input id="episodeSearch" class="focusable" placeholder="Buscar episódio..." /></label><div class="tabs" id="seasonTabs"></div><div class="epGrid" id="episodesGrid"></div></section></main>
-<div id="playerWrap"><iframe id="frame" allow="autoplay; fullscreen" allowfullscreen></iframe><div id="playerControls"><div class="playerTop"><button class="btn ghost focusable" id="backBtn">⬅ Voltar</button><div class="playerTitle" id="playerTitle">—</div></div><div class="playerBottom"><button class="btn ghost focusable" id="markWatchedBtn">✓ Marcar visto</button><button class="btn primary focusable" id="nextBtn">Próximo episódio ▶</button></div></div></div><div class="toast" id="toast">—</div>
-<script>
-// ============================================================
-// CAPAS DOS DONGHUAS
-// Coloque suas imagens na pasta /images com estes nomes:
-// armji.jpg, siliang.jpg, wddg.jpg, atg.jpg, loyc.jpg, stellar.jpg, tfg.jpg
-// Para adicionar outro donghua, crie uma imagem em /images e use o caminho em poster.
-// ============================================================
-const LIBRARY = [
+    <header class="topbar">
+        <div class="topinner">
+            <div class="logo"><span class="logoMark"></span>Minha TV <span class="pill" id="pillCount">—</span></div>
+            <div class="spacer"></div>
+            <div class="navActions"><button class="btn ghost focusable" id="homeBtn">🏠 Home</button><button
+                    class="btn ghost focusable" id="favoritesBtn">⭐ Favoritos</button></div><label
+                class="searchBox"><span>🔎</span><input id="globalSearch" class="focusable"
+                    placeholder="Buscar donghua ou episódio..." /></label>
+        </div>
+    </header>
+    <main class="wrap">
+        <section id="homeView">
+            <div class="hero" id="hero">
+                <div class="heroBg" id="heroBg"></div>
+                <div class="heroContent">
+                    <div class="eyebrow" id="heroMeta"></div>
+                    <div class="heroTitle" id="heroTitle">Minha Biblioteca</div>
+                    <div class="heroDesc" id="heroDesc">Escolha um donghua e assista direto na TV.</div>
+                    <div class="heroActions"><button class="btn primary focusable" id="heroContinue">▶
+                            Continuar</button><button class="btn focusable" id="heroEpisodes">📺 Ver
+                            episódios</button><button class="btn ghost focusable" id="heroFav">⭐ Favoritar</button>
+                    </div>
+                    <div class="hint">TV: use as setas para navegar, Enter/OK para abrir e Voltar/Esc para sair do
+                        player.</div>
+                </div>
+            </div>
+            <div id="continueHome"></div>
+            <div class="sectionTitle">
+                <h2 id="rowTitle">Donghuas</h2><small>Hover/seleção mostra detalhes no banner</small>
+            </div>
+            <div class="row" id="donghuaRow"></div>
+        </section>
+        <section id="episodesView" class="hide">
+            <div class="crumbs"><button class="btn ghost focusable" id="backHome">⬅
+                    Voltar</button><span>Donghua:</span><b id="seriesTitle">—</b><span class="pill"
+                    id="seriesPill">—</span></div>
+            <div class="seriesHeader">
+                <div class="seriesHeaderBg" id="seriesHeaderBg"></div>
+                <div class="seriesHeaderContent"><img class="miniPoster" id="seriesPoster" alt="">
+                    <div>
+                        <div class="eyebrow" id="seriesMeta"></div>
+                        <div class="seriesName" id="seriesName">—</div>
+                        <div class="heroDesc" id="seriesDesc">—</div>
+                        <div class="heroActions"><button class="btn primary focusable" id="playFirstBtn">▶
+                                Assistir</button><button class="btn ghost focusable" id="seriesFavBtn">⭐
+                                Favoritar</button></div>
+                    </div>
+                </div>
+            </div>
+            <div id="continueSeries"></div><label class="searchBox"
+                style="display:block;max-width:640px;margin-bottom:12px"><span>🔎</span><input id="episodeSearch"
+                    class="focusable" placeholder="Buscar episódio..." /></label>
+            <div class="tabs" id="seasonTabs"></div>
+            <div class="epGrid" id="episodesGrid"></div>
+        </section>
+    </main>
+    <div id="playerWrap"><iframe id="frame" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <div id="playerControls">
+            <div class="playerTop"><button class="btn ghost focusable" id="backBtn">⬅ Voltar</button>
+                <div class="playerTitle" id="playerTitle">—</div>
+            </div>
+            <div class="playerBottom"><button class="btn ghost focusable" id="markWatchedBtn">✓ Marcar
+                    visto</button><button class="btn primary focusable" id="nextBtn">Próximo episódio ▶</button></div>
+        </div>
+    </div>
+    <div class="toast" id="toast">—</div>
+    <script>
+        // ============================================================
+        // CAPAS DOS DONGHUAS
+        // Coloque suas imagens na pasta /images com estes nomes:
+        // armji.jpg, siliang.jpg, wddg.jpg, atg.jpg, loyc.jpg, stellar.jpg, tfg.jpg
+        // Para adicionar outro donghua, crie uma imagem em /images e use o caminho em poster.
+        // ============================================================
+        const LIBRARY = [
             {
                 key: "armji",
                 name: "A Record of a Mortal's Journey to Immortality",
@@ -362,25 +1151,174 @@ const LIBRARY = [
                         ]
                     }
                 ]
-            }
+            },
+
+            {
+                key: "pbs",
+                name: "Peerless Battle Spirit",
+                type: "Donghua",
+                poster: "./images/peerless-battle-spirit.jpg",
+                desc: "Cultivo, batalhas e evolução constante. Episódios 1 ao 136.",
+                episodes: [
+                    { title: "Episódio 1", id: "1NoiVOCp3HpKJXyELLqLQxOuGmscVRVKk" },
+                    { title: "Episódio 2", id: "1Lo83oujAD5b_kc41n6yiVZyUlpONiWsq" },
+                    { title: "Episódio 3", id: "1EVEboqNGV1N7LTSQa8VaunEySGcSGcqs" },
+                    { title: "Episódio 4", id: "133J-mEm9OrVQsGR8_FxrgDas6QM30iKM" },
+                    { title: "Episódio 5", id: "1XQnnwS4uXzNbPD9zaDt2KsJAyVL7zR1Q" },
+                    { title: "Episódio 6", id: "1RU-ghe2s_dSp2EtlulA3SUQzND5Z4K56" },
+                    { title: "Episódio 7", id: "10PNymacKLA9_fULZjr1EHvSBF6JKDl0T" },
+                    { title: "Episódio 8", id: "1XCCxkzTQsgxszao6E7HDsvGjUbGJx5MN" },
+                    { title: "Episódio 9", id: "1Jc9ZEqePLb3aPDrok9X2sHrt3swXJGok" },
+                    { title: "Episódio 10", id: "1d7Hd2jbqiIlai7H4BVmRf5I6GWCW1k9l" },
+                    { title: "Episódio 11", id: "1INZrtaTgYO6-PMOiq_Sq2MXtJdiopEm5" },
+                    { title: "Episódio 12", id: "10XLkaDT6B9sSxZdn4LZ1Sd0UiTQ-n_-R" },
+                    { title: "Episódio 13", id: "1eUc5GNhBXZdh_Vbs_YGMTDbq9NvJL61y" },
+                    { title: "Episódio 14", id: "1RronBHMwTeaaAmnRMip2mv7m10scmpGD" },
+                    { title: "Episódio 15", id: "1Zu6L6DoYOPz6uuJWr57mpvChfhAhtwYO" },
+                    { title: "Episódio 16", id: "1tlxuZVJJWnMALE6XB4MNI3NhbiFUjNr_" },
+                    { title: "Episódio 17", id: "1C_JWBXdj2M32bpnAa8-BqhpAR__i0NzJ" },
+                    { title: "Episódio 18", id: "1Ir4l-go6tKjysWjiwrE8AhIA0afaWCrF" },
+                    { title: "Episódio 19", id: "1T6Qwm4Kc4qbnjE57ttQ9V8KnDL7MJoz3" },
+                    { title: "Episódio 20", id: "1tS9Qs1vMiDsUmo7GcOD_yEgBqpLmHNIw" },
+                    { title: "Episódio 21", id: "1zTE-Xt3zqb8m8P6lzO6GPfFdlU8_f1Wt" },
+                    { title: "Episódio 22", id: "1lMuWbiBOfsmT4Ku-cL3WfGCeX_QMshya" },
+                    { title: "Episódio 23", id: "1-2SenGu1McuEqWsbi1A_ZRJXMiz9K4c8" },
+                    { title: "Episódio 24", id: "1Z6WBoMhpR_1WPHqknH1E4h3U_QBYA2pn" },
+                    { title: "Episódio 25", id: "1XDbhMzemNhJwu4q3-77fwOYgreMxOAIM" },
+                    { title: "Episódio 26", id: "1NjUS7n_a0NIR3PJ51KCITSeacwQZEKxQ" },
+                    { title: "Episódio 27", id: "12IhImzpmwEwZTl44UHPKZO1tTr2jEtHr" },
+                    { title: "Episódio 28", id: "1BEZm-XToFeGRWf6NQecpfLJWB0X1VjpC" },
+                    { title: "Episódio 29", id: "1plcUhv6tgDvD_URaPCID2VrSkIMqo7mk" },
+                    { title: "Episódio 30", id: "1eGG_MqpZtCiMwNdGV5qc5blblgTh3vkz" },
+                    { title: "Episódio 31", id: "1wNK-ZnGLYu83CDp0Y3w1x_0uvpsNMbFR" },
+                    { title: "Episódio 32", id: "1-dRgUUQGkl9_tIaG6pQN2MJd1_SYwwz7" },
+                    { title: "Episódio 33", id: "1l3Dd0Ud81sGgvshUf2QBbxvqCjdeqbwI" },
+                    { title: "Episódio 34", id: "1X-TZrI-AfEBiLJPp4Ysdmkp23NTr6DrU" },
+                    { title: "Episódio 35", id: "10b-n-8jhPVr-QaDSLObl8H8uofIQO1tO" },
+                    { title: "Episódio 36", id: "1a1lRPxg8hba_UWwfL2dwVAl1y4Dde_yD" },
+                    { title: "Episódio 37", id: "1skhkN9XwGlS9W-C9srp_fTGJ98JKA_j4" },
+                    { title: "Episódio 38", id: "18hdSh_0D8JrpJ2PBAnJDskaiI2myG_qa" },
+                    { title: "Episódio 39", id: "1fTtAg_hky6pns4m4FGe5JlKxXuiykJPv" },
+                    { title: "Episódio 40", id: "1w3Lvq9WvkD5M-rnZZRcy6_myZAGkGNHj" },
+                    { title: "Episódio 41", id: "1cdAjujBACvFsB1mPODWAbGSjtVDFi7TL" },
+                    { title: "Episódio 42", id: "1LHivhhEmeGvz-DGvAVbvbk3NNmkl5lj_" },
+                    { title: "Episódio 43", id: "1xS9N-zMxttHwT0iC2yDkuRZOW7AOpxpa" },
+                    { title: "Episódio 44", id: "10aR8efsu4WqTJ6aWTAHyebTwBMh6lnIm" },
+                    { title: "Episódio 45", id: "1wQvC8JkyT_cQivbVkNU2SdTNlOOUQnqG" },
+                    { title: "Episódio 46", id: "1QkUFAXxxSeO5RsPER2VVPvgf4XREVV9Q" },
+                    { title: "Episódio 47", id: "1TCx2FqmM3zpYwPD2_qqFGZLeOVuY6AfG" },
+                    { title: "Episódio 48", id: "1wAfVBlDi2y_YF6JJCj6qB3wLAlCkBc0j" },
+                    { title: "Episódio 49", id: "1A2yO2kfKjSZptpShKLmf0CrDJ0yXT4uv" },
+                    { title: "Episódio 50", id: "15sO3zubPFVrxKKNZeVP8dT3MMk8gXNuC" },
+                    { title: "Episódio 51", id: "1GCeYSmVvdEelt9AEcHnNUPRyOEvNN2ET" },
+                    { title: "Episódio 52", id: "1mjP9JLp1bQUfn0lr39WT_toYnrOhdo3Y" },
+                    { title: "Episódio 53", id: "1wAnJK5aGs2CIGA1EkZLI9bRKFRdZn-jc" },
+                    { title: "Episódio 54", id: "1ulitmW7tKA7qjKYqpm341KJyU2CP2fPS" },
+                    { title: "Episódio 55", id: "1Fhmu5pnB6EIiTbbRlmlv6VTRqzco4cz5" },
+                    { title: "Episódio 56", id: "1q-9uTeUYfAON1cNY5ALcy3kYRnYITHg7" },
+                    { title: "Episódio 57", id: "190vmUdIeumRFsCPeMy633XzpjJfbUTTg" },
+                    { title: "Episódio 58", id: "1VqjtrKbJhk_rl4wSylFVOpJcrvhdCUKR" },
+                    { title: "Episódio 59", id: "1g9Jufaa3AuLI506THMhwRATTvxicrSGV" },
+                    { title: "Episódio 60", id: "1DmnqtrnqsMWWQvfXUXyTRRPhIdzRvkNc" },
+                    { title: "Episódio 61", id: "1ZL4csGxKK11JyBGytVrIFDvhlvDAQ9bD" },
+                    { title: "Episódio 62", id: "1JEwwgupWP4kUv820MIvddW57-raUodIS" },
+                    { title: "Episódio 63", id: "15xRpZDc6BWs7-ysLP2WSIxF9fMy_sus-" },
+                    { title: "Episódio 64", id: "1kPiRE8ttC2iKsMseVo-8AcwJP4eApd7M" },
+                    { title: "Episódio 65", id: "16b5yeLL9n-emlNI-y4W1kl8smx2s3Khh" },
+                    { title: "Episódio 66", id: "1i03pKz9CpDQB96rKoi2FxFISJOkU9ldd" },
+                    { title: "Episódio 67", id: "1MzBCMgJFhvk6-0lttyC0wh5iSYhTX3X5" },
+                    { title: "Episódio 68", id: "1i0OUCtVBbeO-paH88i0CKi6719j132XM" },
+                    { title: "Episódio 69", id: "1NOIaY8BgsbXDMqstR8EaNQmEFrusKbQi" },
+                    { title: "Episódio 70", id: "1Osy9JEFamlg7UfyL0J3PBx39Lk_RJBvA" },
+                    { title: "Episódio 71", id: "1tBKz2P6g5JcqDAVPdBwr57ENCOrZlncq" },
+                    { title: "Episódio 72", id: "1f7jb9Ei9v9vt1-RBfWD8hHlz3UYSL8eq" },
+                    { title: "Episódio 73", id: "13WudHKiW9wzuVxrIYtvRmx7JuFTSr2uc" },
+                    { title: "Episódio 74", id: "1VTUcYgSnuFPrYSgz5pgL7iXKoT7NUjMG" },
+                    { title: "Episódio 75", id: "1pp_HeFaH5OyB6wH4KNluz9q1ZBO5M6L1" },
+                    { title: "Episódio 76", id: "17CEe76woyHDiupMHJ-rieRoGQWvAepA4" },
+                    { title: "Episódio 77", id: "1zlvUFL-h-BNw-4deiOT5DWFHjqRIlVkU" },
+                    { title: "Episódio 78", id: "1jwGIWIRG-1ABeyY1ZNmitz5UZX9SW0oK" },
+                    { title: "Episódio 79", id: "14gJJvCT232j7gkKV_bbJO6V_qMqYbATE" },
+                    { title: "Episódio 80", id: "1VSsAxdw7wF4nyCcN0SfhgQ88NUt3iPf7" },
+                    { title: "Episódio 81", id: "1Kc23rUS-FpoGBLJTPcDg6PagI7EnI-1z" },
+                    { title: "Episódio 82", id: "1jxn_nfMhX0v_6fbo9xqH7gWTW0dImdUW" },
+                    { title: "Episódio 83", id: "1-YPQa0nSufAdMIjWzvVkPAnEkgr_2kDx" },
+                    { title: "Episódio 84", id: "1udfXjToEhJO_UleU53RuuXAdxkwVpIwO" },
+                    { title: "Episódio 85", id: "1SLyv8uIxXis9Eyg0HT4vj1Gz6Y3BqMiZ" },
+                    { title: "Episódio 86", id: "1CBOArjOXmlC4oPZV_sDS3NlG73_IDkpx" },
+                    { title: "Episódio 87", id: "1jyjaEFmDCZu2U_FQ0Zb1O51WwXdqEno7" },
+                    { title: "Episódio 88", id: "14-kkKc0ROmJtqRvHsTmE1cfSFuv3KaT9" },
+                    { title: "Episódio 89", id: "1WskOwWCpyarJ8trFZtGPdkdwnWPocsqu" },
+                    { title: "Episódio 90", id: "10N88qAb0IZcwW9tE48Kv-bJNSdeCGvN5" },
+                    { title: "Episódio 91", id: "1cGWC4ZGg-biTDMaHbvpt3wQvAsOYcOoD" },
+                    { title: "Episódio 92", id: "1JnXUZrL5ylb-e1CRMeLXpzOG-m1rmt_-" },
+                    { title: "Episódio 93", id: "1SaF5MnwB98yWB9EA_1P2jX0JFEmZidUh" },
+                    { title: "Episódio 94", id: "1XwGhN74xPuLijV1wclCGwhqs-b4n7V9-" },
+                    { title: "Episódio 95", id: "1jG6O7N6WvhZ4JjX3zyZtfxQZJGjnTG7o" },
+                    { title: "Episódio 96", id: "1jHbe2tPXvgNEuuF5aS3zUbHqr7d_F2vo" },
+                    { title: "Episódio 97", id: "1iHwH3zsZBHJ9bsIMRI5SinOBG8KOqQGn" },
+                    { title: "Episódio 98", id: "1ZbfBRZeSl4tFy4aYxAkGK1--IuXpll_6" },
+                    { title: "Episódio 99", id: "1dQa-BqI27oFx03Stwf7yblDc9bzUfcJF" },
+                    { title: "Episódio 100", id: "1NSPZPdFc6dL430aueF4sJif50KqcHhke" },
+                    { title: "Episódio 101", id: "16qdHwvFnh_v1VmmNQXb28NrVbfsqxDbV" },
+                    { title: "Episódio 102", id: "1993DIhp7lfdx5hDUmzN1C0aeaTXavYlG" },
+                    { title: "Episódio 103", id: "1nvnpkrAJcDf_e3zNX17WLUjuqQ5wOLkz" },
+                    { title: "Episódio 104", id: "193utEpHfq3nxkex6O1RSAv-HGaL9bCma" },
+                    { title: "Episódio 105", id: "19D-pb_iqh9vEJ_HA6pnAmeXQrjmylqos" },
+                    { title: "Episódio 106", id: "1m7p3VNP3adFnMznmG3Xs9jSwKJC6CPtP" },
+                    { title: "Episódio 107", id: "11uyleWTfrIT_zdElsQiIm3VDi_m8T_lD" },
+                    { title: "Episódio 108", id: "16cBD-A4AZyIJUDAk5aVvSLJaLCyhlHd_" },
+                    { title: "Episódio 109", id: "179M6yRbe6-ei8N2q8YRc9PTBP_8snz08" },
+                    { title: "Episódio 110", id: "1iP7E0V4t8i1FVC-Z6KfTIjIrUyQx5Nyl" },
+                    { title: "Episódio 111", id: "1Lb2lxnpQclwgi9izJTMjbVXQgSMBHutP" },
+                    { title: "Episódio 112", id: "1i0v5aCSkBSwNbdNNcDUcNO3BV56FJPOp" },
+                    { title: "Episódio 113", id: "14ncySeZyMDdzAZIoM7HKa1vPDQjs6Q_6" },
+                    { title: "Episódio 114", id: "1MKXSUrVQX36Dw1gLfvpHDw786UGqddw-" },
+                    { title: "Episódio 115", id: "1cXYXb6QWe-2QYnG0g55yxGb8qZQQzohS" },
+                    { title: "Episódio 116", id: "1qK2plE_koZBBVN2ctfKiSd_eWIPqM_2S" },
+                    { title: "Episódio 117", id: "1OCo-5sElMmMk7G786M6F6aR4sMiVwGQp" },
+                    { title: "Episódio 118", id: "1PWF-nER_OhzFtSqahvwzzn9Zz0VrbCnO" },
+                    { title: "Episódio 119", id: "1ORwMUuoHgB1agAHn92obcFw1GuSxqPK-" },
+                    { title: "Episódio 120", id: "19KmUD96EVkYLgISDOKLWTk8iseeehwmV" },
+                    { title: "Episódio 121", id: "1D8u0ek9i9m2JI_uLBjpViN1FR4MtK2d7" },
+                    { title: "Episódio 122", id: "1wQvC8JkyT_cQivbVkNU2SdTNlOOUQnqG" },
+                    { title: "Episódio 123", id: "10aR8efsu4WqTJ6aWTAHyebTwBMh6lnIm" },
+                    { title: "Episódio 124", id: "1xS9N-zMxttHwT0iC2yDkuRZOW7AOpxpa" },
+                    { title: "Episódio 125", id: "1LHivhhEmeGvz-DGvAVbvbk3NNmkl5lj_" },
+                    { title: "Episódio 126", id: "1cdAjujBACvFsB1mPODWAbGSjtVDFi7TL" },
+                    { title: "Episódio 127", id: "1w3Lvq9WvkD5M-rnZZRcy6_myZAGkGNHj" },
+                    { title: "Episódio 128", id: "18hdSh_0D8JrpJ2PBAnJDskaiI2myG_qa" },
+                    { title: "Episódio 129", id: "1fTtAg_hky6pns4m4FGe5JlKxXuiykJPv" },
+                    { title: "Episódio 130", id: "1skhkN9XwGlS9W-C9srp_fTGJ98JKA_j4" },
+                    { title: "Episódio 131", id: "1a1lRPxg8hba_UWwfL2dwVAl1y4Dde_yD" },
+                    { title: "Episódio 132", id: "10b-n-8jhPVr-QaDSLObl8H8uofIQO1tO" },
+                    { title: "Episódio 133", id: "1X-TZrI-AfEBiLJPp4Ysdmkp23NTr6DrU" },
+                    { title: "Episódio 134", id: "1l3Dd0Ud81sGgvshUf2QBbxvqCjdeqbwI" },
+                    { title: "Episódio 135", id: "1-dRgUUQGkl9_tIaG6pQN2MJd1_SYwwz7" },
+                    { title: "Episódio 136", id: "1wNK-ZnGLYu83CDp0Y3w1x_0uvpsNMbFR" },
+                ]
+            },
+
+
         ];
-const $=(id)=>document.getElementById(id);
-const homeView=$('homeView'),episodesView=$('episodesView'),donghuaRow=$('donghuaRow'),globalSearch=$('globalSearch'),homeBtn=$('homeBtn'),favoritesBtn=$('favoritesBtn'),backHome=$('backHome'),episodeSearch=$('episodeSearch'),episodesGrid=$('episodesGrid'),seasonTabs=$('seasonTabs');
-const heroBg=$('heroBg'),heroTitle=$('heroTitle'),heroMeta=$('heroMeta'),heroDesc=$('heroDesc'),heroContinue=$('heroContinue'),heroEpisodes=$('heroEpisodes'),heroFav=$('heroFav'),pillCount=$('pillCount'),rowTitle=$('rowTitle'),continueHome=$('continueHome');
-const seriesTitle=$('seriesTitle'),seriesPill=$('seriesPill'),seriesHeaderBg=$('seriesHeaderBg'),seriesPoster=$('seriesPoster'),seriesName=$('seriesName'),seriesDesc=$('seriesDesc'),seriesMeta=$('seriesMeta'),playFirstBtn=$('playFirstBtn'),seriesFavBtn=$('seriesFavBtn'),continueSeries=$('continueSeries');
-const playerWrap=$('playerWrap'),frame=$('frame'),controls=$('playerControls'),backBtn=$('backBtn'),nextBtn=$('nextBtn'),markWatchedBtn=$('markWatchedBtn'),playerTitle=$('playerTitle'),toast=$('toast');
-let currentSeriesKey=LIBRARY[0]?.key||null,currentSeasonIndex=null,currentEpisodeIndex=null,currentMode='all',controlsTimer=null,autoplayTimer=null;const DEFAULT_EP_MINUTES=21,DURATIONS={};
-const store={get(k,f){try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},set(k,v){localStorage.setItem(k,JSON.stringify(v))}};const favs=()=>store.get('minhatv:favorites',[]),progress=()=>store.get('minhatv:progress',{}),watched=()=>store.get('minhatv:watched',{});
-function getSeries(key){return LIBRARY.find(s=>s.key===key)}function hasSeasons(s){return Array.isArray(s?.seasons)&&s.seasons.length>0}function getAllEpisodes(s){if(!s)return[];return hasSeasons(s)?s.seasons.flatMap((season,si)=>season.episodes.map((ep,idx)=>({...ep,seasonIndex:si,idx,seasonName:season.name}))):(s.episodes||[]).map((ep,idx)=>({...ep,seasonIndex:null,idx,seasonName:null}))}function getTotalEpisodes(s){return getAllEpisodes(s).length}function firstPlayable(s){const p=progress()[s.key];if(p)return p;const ep=getAllEpisodes(s)[0];return ep?{seriesKey:s.key,seasonIndex:ep.seasonIndex,idx:ep.idx}:null}function epKey(seriesKey,seasonIndex,idx){return `${seriesKey}:${seasonIndex??'single'}:${idx}`}function isFav(key){return favs().includes(key)}function getEpisode(seriesKey,seasonIndex,idx){const s=getSeries(seriesKey);if(!s)return null;return hasSeasons(s)&&seasonIndex!==null?s.seasons[seasonIndex]?.episodes[idx]:s.episodes?.[idx]}function escapeHtml(s){return(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function showToast(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)}function tag(t){return `<span class="pill">${escapeHtml(String(t))}</span>`}
-function toggleFav(key){let f=favs();f=f.includes(key)?f.filter(x=>x!==key):[...f,key];store.set('minhatv:favorites',f);showToast(f.includes(key)?'Adicionado aos favoritos':'Removido dos favoritos');renderAll()}function markWatched(seriesKey=currentSeriesKey,seasonIndex=currentSeasonIndex,idx=currentEpisodeIndex){if(idx===null||idx===undefined)return;const w=watched();w[epKey(seriesKey,seasonIndex,idx)]=true;store.set('minhatv:watched',w);showToast('Episódio marcado como visto');if(!episodesView.classList.contains('hide'))renderEpisodes()}function saveProgress(seriesKey,seasonIndex,idx){const p=progress();p[seriesKey]={seriesKey,seasonIndex,idx,at:Date.now()};store.set('minhatv:progress',p)}
-function setHero(key){const s=getSeries(key);if(!s)return;currentSeriesKey=key;heroBg.style.backgroundImage=`url('${s.poster}')`;heroTitle.textContent=s.name;heroDesc.textContent=s.desc||'Clique para abrir e escolher episódios.';heroMeta.innerHTML=tag(s.type)+tag(`${getTotalEpisodes(s)} eps`)+(hasSeasons(s)?tag(`${s.seasons.length} temporadas`):'')+(isFav(s.key)?tag('⭐ favorito'):'');heroEpisodes.onclick=()=>openEpisodes(s.key);heroContinue.onclick=()=>{const p=firstPlayable(s);if(p)playEpisode(p.seriesKey,p.idx,p.seasonIndex)};heroFav.textContent=isFav(s.key)?'⭐ Favorito':'☆ Favoritar';heroFav.onclick=()=>toggleFav(s.key)}
-function renderHome(){homeView.classList.remove('hide');episodesView.classList.add('hide');playerWrap.style.display='none';const q=(globalSearch.value||'').trim().toLowerCase();let list=LIBRARY.filter(s=>{if(currentMode==='favorites'&&!isFav(s.key))return false;if(!q)return true;return s.name.toLowerCase().includes(q)||getAllEpisodes(s).some(ep=>(ep.title+' '+(ep.seasonName||'')).toLowerCase().includes(q))});rowTitle.textContent=currentMode==='favorites'?'Favoritos':'Donghuas';pillCount.textContent=`${list.length} item(ns)`;donghuaRow.innerHTML='';if(!list.length){donghuaRow.innerHTML='<div class="empty">Nada encontrado. Use a busca ou adicione favoritos com ⭐.</div>';continueHome.innerHTML='';return}if(!list.some(s=>s.key===currentSeriesKey))currentSeriesKey=list[0].key;setHero(currentSeriesKey);list.forEach(s=>{const p=progress()[s.key],percent=p?70:0;const div=document.createElement('article');div.className='card focusable';div.tabIndex=0;div.dataset.key=s.key;div.innerHTML=`<span class="previewBadge">Preview</span><button class="fav ${isFav(s.key)?'on':''}" title="Favoritar">${isFav(s.key)?'★':'☆'}</button><img class="poster" src="${s.poster}" alt="${escapeHtml(s.name)}" onerror="this.src='images/placeholder.jpg'"><div class="cardGrad"></div><div class="cardPad"><div class="cardTitle">${escapeHtml(s.name)}</div><div class="cardMeta"><span>${escapeHtml(s.type)}</span><span>•</span><span>${getTotalEpisodes(s)} eps</span>${hasSeasons(s)?`<span>•</span><span>${s.seasons.length} temp.</span>`:''}</div><div class="progressTrack"><div class="progressFill" style="width:${percent}%"></div></div></div>`;div.onmouseenter=()=>setHero(s.key);div.onfocus=()=>setHero(s.key);div.onclick=(e)=>{if(e.target.classList.contains('fav')){e.stopPropagation();toggleFav(s.key);return}openEpisodes(s.key)};donghuaRow.appendChild(div)});renderContinuePanels();updateFocusable();history.replaceState({view:'home'},'',location.pathname)}
-function renderContinuePanels(){const p=progress(),entries=Object.values(p).sort((a,b)=>(b.at||0)-(a.at||0));function panel(entry){const s=getSeries(entry.seriesKey),ep=getEpisode(entry.seriesKey,entry.seasonIndex,entry.idx);if(!s||!ep)return'';const sn=entry.seasonIndex!==null?s.seasons[entry.seasonIndex].name:'';return `<div class="continuePanel"><img src="${s.poster}" onerror="this.src='images/placeholder.jpg'" alt=""><div><b>Continuar: ${escapeHtml(s.name)}</b><span>${escapeHtml(sn)} ${escapeHtml(ep.title)}</span></div><button class="btn primary focusable" onclick="playEpisode('${s.key}',${entry.idx},${entry.seasonIndex===null?'null':entry.seasonIndex})">▶ Continuar</button></div>`}continueHome.innerHTML=entries[0]?panel(entries[0]):'';const curr=progress()[currentSeriesKey];continueSeries.innerHTML=curr?panel(curr):''}
-function openHome(push=true){currentSeasonIndex=null;currentEpisodeIndex=null;currentMode='all';renderHome();if(push)history.pushState({view:'home'},'',location.pathname)}function openEpisodes(key,seasonIndex=null,push=true){const s=getSeries(key);if(!s)return;currentSeriesKey=key;currentSeasonIndex=seasonIndex;currentEpisodeIndex=null;homeView.classList.add('hide');episodesView.classList.remove('hide');playerWrap.style.display='none';seriesTitle.textContent=s.name;seriesName.textContent=s.name;seriesDesc.textContent=s.desc||'';seriesPoster.src=s.poster;seriesHeaderBg.style.backgroundImage=`url('${s.poster}')`;seriesMeta.innerHTML=tag(s.type)+tag(`${getTotalEpisodes(s)} eps`)+(hasSeasons(s)?tag(`${s.seasons.length} temporadas`):'');seriesFavBtn.textContent=isFav(s.key)?'⭐ Favorito':'☆ Favoritar';seriesFavBtn.onclick=()=>toggleFav(s.key);playFirstBtn.onclick=()=>{const p=firstPlayable(s);if(p)playEpisode(p.seriesKey,p.idx,p.seasonIndex)};episodeSearch.value='';renderEpisodes();renderContinuePanels();window.scrollTo({top:0,behavior:'smooth'});if(push)history.pushState({view:'episodes',key,seasonIndex},'',`#/${key}${seasonIndex!==null?'/s'+seasonIndex:''}`)}function openSeason(si,push=true){currentSeasonIndex=si;renderEpisodes();if(push)history.pushState({view:'episodes',key:currentSeriesKey,seasonIndex:si},'',`#/${currentSeriesKey}/s${si}`)}
-function renderEpisodes(){const s=getSeries(currentSeriesKey);if(!s)return;const q=(episodeSearch.value||'').trim().toLowerCase();episodesGrid.innerHTML='';seasonTabs.innerHTML='';if(hasSeasons(s)){if(currentSeasonIndex===null)currentSeasonIndex=0;s.seasons.forEach((season,idx)=>{const b=document.createElement('button');b.className='seasonTab focusable '+(idx===currentSeasonIndex?'active':'');b.textContent=`${season.name} (${season.episodes.length})`;b.onclick=()=>openSeason(idx);seasonTabs.appendChild(b)})}const eps=hasSeasons(s)?s.seasons[currentSeasonIndex].episodes:s.episodes;seriesPill.textContent=hasSeasons(s)?`${s.seasons[currentSeasonIndex].name} • ${eps.length} eps`:`${eps.length} eps`;const w=watched();eps.map((ep,idx)=>({...ep,idx})).filter(ep=>!q||ep.title.toLowerCase().includes(q)).forEach(ep=>{const key=epKey(s.key,currentSeasonIndex,ep.idx);const div=document.createElement('button');div.className='ep focusable '+(w[key]?'watched':'');div.innerHTML=`<b>${escapeHtml(ep.title)}</b><small>${w[key]?'Assistido':'Clique para assistir'} • Enter/OK</small>`;div.onclick=()=>playEpisode(s.key,ep.idx,currentSeasonIndex);episodesGrid.appendChild(div)});if(!episodesGrid.children.length)episodesGrid.innerHTML='<div class="empty">Nenhum episódio encontrado.</div>';updateFocusable()}
-function tryFullscreen(){try{if(playerWrap.requestFullscreen)playerWrap.requestFullscreen()}catch{}}function playEpisode(seriesKey,idx,seasonIndex=null,push=true){const s=getSeries(seriesKey),ep=getEpisode(seriesKey,seasonIndex,idx);if(!s||!ep)return;currentSeriesKey=seriesKey;currentSeasonIndex=seasonIndex;currentEpisodeIndex=idx;saveProgress(seriesKey,seasonIndex,idx);playerWrap.style.display='block';homeView.classList.add('hide');episodesView.classList.add('hide');frame.src=`https://drive.google.com/file/d/${ep.id}/preview`;playerTitle.textContent=`${s.name} — ${seasonIndex!==null?s.seasons[seasonIndex].name+' • ':''}${ep.title}`;setTimeout(tryFullscreen,250);setTimeout(showControls,300);scheduleAutoplay(seriesKey,idx,seasonIndex);if(push)history.pushState({view:'player',key:seriesKey,seasonIndex,idx},'',`#/${seriesKey}/play/${seasonIndex??'single'}/${idx}`)}function closePlayer(push=true){frame.src='';playerWrap.style.display='none';clearAutoplay();if(document.fullscreenElement){try{document.exitFullscreen()}catch{}}openEpisodes(currentSeriesKey,currentSeasonIndex,push)}function nextEpisode(){nextEpisodeAuto(currentSeriesKey,currentEpisodeIndex,currentSeasonIndex)}function scheduleAutoplay(seriesKey,idx,seasonIndex=null){clearAutoplay();autoplayTimer=setTimeout(()=>nextEpisodeAuto(seriesKey,idx,seasonIndex),(DURATIONS[seriesKey]??DEFAULT_EP_MINUTES)*60*1000)}function clearAutoplay(){if(autoplayTimer)clearTimeout(autoplayTimer);autoplayTimer=null}function nextEpisodeAuto(seriesKey,idx,seasonIndex=null){const s=getSeries(seriesKey);if(!s)return;markWatched(seriesKey,seasonIndex,idx);if(hasSeasons(s)&&seasonIndex!==null){let ni=idx+1,ns=seasonIndex;if(ni>=s.seasons[ns].episodes.length){ns++;ni=0;if(ns>=s.seasons.length)ns=0}playEpisode(seriesKey,ni,ns);return}playEpisode(seriesKey,(idx+1)%s.episodes.length,null)}function showControls(){controls.classList.add('show');clearTimeout(controlsTimer);controlsTimer=setTimeout(()=>controls.classList.remove('show'),3300)}
-nextBtn.onclick=nextEpisode;markWatchedBtn.onclick=()=>markWatched();backBtn.onclick=()=>closePlayer();homeBtn.onclick=()=>openHome();favoritesBtn.onclick=()=>{currentMode=currentMode==='favorites'?'all':'favorites';renderHome();favoritesBtn.textContent=currentMode==='favorites'?'📚 Todos':'⭐ Favoritos'};backHome.onclick=()=>openHome();globalSearch.oninput=renderHome;episodeSearch.oninput=renderEpisodes;document.addEventListener('mousemove',showControls);document.addEventListener('touchstart',showControls);playerWrap.addEventListener('click',e=>{if(e.target===playerWrap)showControls()});document.addEventListener('keydown',e=>{showControls();if(e.key==='Escape'||e.key==='Backspace'){if(playerWrap.style.display==='block'){e.preventDefault();closePlayer()}}if(playerWrap.style.display==='block'&&e.key==='ArrowRight'){e.preventDefault();nextEpisode()}handleRemoteKeys(e)});window.addEventListener('popstate',e=>{const st=e.state;if(!st){renderHome();return}if(st.view==='home')renderHome();if(st.view==='episodes')openEpisodes(st.key,st.seasonIndex,false);if(st.view==='player')playEpisode(st.key,st.idx,st.seasonIndex,false)});
-let focusables=[],focusIndex=0;function updateFocusable(){focusables=[...document.querySelectorAll('.focusable:not(.hide)')].filter(el=>el.offsetParent!==null)}function setFocus(i){updateFocusable();if(!focusables.length)return;focusIndex=(i+focusables.length)%focusables.length;focusables.forEach(x=>x.classList.remove('focused'));const el=focusables[focusIndex];el.classList.add('focused');el.focus({preventScroll:false});if(el.dataset.key)setHero(el.dataset.key)}function handleRemoteKeys(e){if(['ArrowDown','ArrowRight','ArrowUp','ArrowLeft'].includes(e.key)){e.preventDefault();setFocus(focusIndex+((e.key==='ArrowDown'||e.key==='ArrowRight')?1:-1))}if(e.key==='Enter'){const el=document.activeElement;if(el&&el.classList.contains('focusable'))el.click()}}function renderAll(){if(episodesView.classList.contains('hide'))renderHome();else openEpisodes(currentSeriesKey,currentSeasonIndex,false)}renderHome();setTimeout(()=>setFocus(0),300);
-</script>
+        const $ = (id) => document.getElementById(id);
+        const homeView = $('homeView'), episodesView = $('episodesView'), donghuaRow = $('donghuaRow'), globalSearch = $('globalSearch'), homeBtn = $('homeBtn'), favoritesBtn = $('favoritesBtn'), backHome = $('backHome'), episodeSearch = $('episodeSearch'), episodesGrid = $('episodesGrid'), seasonTabs = $('seasonTabs');
+        const heroBg = $('heroBg'), heroTitle = $('heroTitle'), heroMeta = $('heroMeta'), heroDesc = $('heroDesc'), heroContinue = $('heroContinue'), heroEpisodes = $('heroEpisodes'), heroFav = $('heroFav'), pillCount = $('pillCount'), rowTitle = $('rowTitle'), continueHome = $('continueHome');
+        const seriesTitle = $('seriesTitle'), seriesPill = $('seriesPill'), seriesHeaderBg = $('seriesHeaderBg'), seriesPoster = $('seriesPoster'), seriesName = $('seriesName'), seriesDesc = $('seriesDesc'), seriesMeta = $('seriesMeta'), playFirstBtn = $('playFirstBtn'), seriesFavBtn = $('seriesFavBtn'), continueSeries = $('continueSeries');
+        const playerWrap = $('playerWrap'), frame = $('frame'), controls = $('playerControls'), backBtn = $('backBtn'), nextBtn = $('nextBtn'), markWatchedBtn = $('markWatchedBtn'), playerTitle = $('playerTitle'), toast = $('toast');
+        let currentSeriesKey = LIBRARY[0]?.key || null, currentSeasonIndex = null, currentEpisodeIndex = null, currentMode = 'all', controlsTimer = null, autoplayTimer = null; const DEFAULT_EP_MINUTES = 21, DURATIONS = {};
+        const store = { get(k, f) { try { return JSON.parse(localStorage.getItem(k)) ?? f } catch { return f } }, set(k, v) { localStorage.setItem(k, JSON.stringify(v)) } }; const favs = () => store.get('minhatv:favorites', []), progress = () => store.get('minhatv:progress', {}), watched = () => store.get('minhatv:watched', {});
+        function getSeries(key) { return LIBRARY.find(s => s.key === key) } function hasSeasons(s) { return Array.isArray(s?.seasons) && s.seasons.length > 0 } function getAllEpisodes(s) { if (!s) return []; return hasSeasons(s) ? s.seasons.flatMap((season, si) => season.episodes.map((ep, idx) => ({ ...ep, seasonIndex: si, idx, seasonName: season.name }))) : (s.episodes || []).map((ep, idx) => ({ ...ep, seasonIndex: null, idx, seasonName: null })) } function getTotalEpisodes(s) { return getAllEpisodes(s).length } function firstPlayable(s) { const p = progress()[s.key]; if (p) return p; const ep = getAllEpisodes(s)[0]; return ep ? { seriesKey: s.key, seasonIndex: ep.seasonIndex, idx: ep.idx } : null } function epKey(seriesKey, seasonIndex, idx) { return `${seriesKey}:${seasonIndex ?? 'single'}:${idx}` } function isFav(key) { return favs().includes(key) } function getEpisode(seriesKey, seasonIndex, idx) { const s = getSeries(seriesKey); if (!s) return null; return hasSeasons(s) && seasonIndex !== null ? s.seasons[seasonIndex]?.episodes[idx] : s.episodes?.[idx] } function escapeHtml(s) { return (s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])) } function showToast(msg) { toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1800) } function tag(t) { return `<span class="pill">${escapeHtml(String(t))}</span>` }
+        function toggleFav(key) { let f = favs(); f = f.includes(key) ? f.filter(x => x !== key) : [...f, key]; store.set('minhatv:favorites', f); showToast(f.includes(key) ? 'Adicionado aos favoritos' : 'Removido dos favoritos'); renderAll() } function markWatched(seriesKey = currentSeriesKey, seasonIndex = currentSeasonIndex, idx = currentEpisodeIndex) { if (idx === null || idx === undefined) return; const w = watched(); w[epKey(seriesKey, seasonIndex, idx)] = true; store.set('minhatv:watched', w); showToast('Episódio marcado como visto'); if (!episodesView.classList.contains('hide')) renderEpisodes() } function saveProgress(seriesKey, seasonIndex, idx) { const p = progress(); p[seriesKey] = { seriesKey, seasonIndex, idx, at: Date.now() }; store.set('minhatv:progress', p) }
+        function setHero(key) { const s = getSeries(key); if (!s) return; currentSeriesKey = key; heroBg.style.backgroundImage = `url('${s.poster}')`; heroTitle.textContent = s.name; heroDesc.textContent = s.desc || 'Clique para abrir e escolher episódios.'; heroMeta.innerHTML = tag(s.type) + tag(`${getTotalEpisodes(s)} eps`) + (hasSeasons(s) ? tag(`${s.seasons.length} temporadas`) : '') + (isFav(s.key) ? tag('⭐ favorito') : ''); heroEpisodes.onclick = () => openEpisodes(s.key); heroContinue.onclick = () => { const p = firstPlayable(s); if (p) playEpisode(p.seriesKey, p.idx, p.seasonIndex) }; heroFav.textContent = isFav(s.key) ? '⭐ Favorito' : '☆ Favoritar'; heroFav.onclick = () => toggleFav(s.key) }
+        function renderHome() { homeView.classList.remove('hide'); episodesView.classList.add('hide'); playerWrap.style.display = 'none'; const q = (globalSearch.value || '').trim().toLowerCase(); let list = LIBRARY.filter(s => { if (currentMode === 'favorites' && !isFav(s.key)) return false; if (!q) return true; return s.name.toLowerCase().includes(q) || getAllEpisodes(s).some(ep => (ep.title + ' ' + (ep.seasonName || '')).toLowerCase().includes(q)) }); rowTitle.textContent = currentMode === 'favorites' ? 'Favoritos' : 'Donghuas'; pillCount.textContent = `${list.length} item(ns)`; donghuaRow.innerHTML = ''; if (!list.length) { donghuaRow.innerHTML = '<div class="empty">Nada encontrado. Use a busca ou adicione favoritos com ⭐.</div>'; continueHome.innerHTML = ''; return } if (!list.some(s => s.key === currentSeriesKey)) currentSeriesKey = list[0].key; setHero(currentSeriesKey); list.forEach(s => { const p = progress()[s.key], percent = p ? 70 : 0; const div = document.createElement('article'); div.className = 'card focusable'; div.tabIndex = 0; div.dataset.key = s.key; div.innerHTML = `<span class="previewBadge">Preview</span><button class="fav ${isFav(s.key) ? 'on' : ''}" title="Favoritar">${isFav(s.key) ? '★' : '☆'}</button><img class="poster" src="${s.poster}" alt="${escapeHtml(s.name)}" onerror="this.src='images/placeholder.jpg'"><div class="cardGrad"></div><div class="cardPad"><div class="cardTitle">${escapeHtml(s.name)}</div><div class="cardMeta"><span>${escapeHtml(s.type)}</span><span>•</span><span>${getTotalEpisodes(s)} eps</span>${hasSeasons(s) ? `<span>•</span><span>${s.seasons.length} temp.</span>` : ''}</div><div class="progressTrack"><div class="progressFill" style="width:${percent}%"></div></div></div>`; div.onmouseenter = () => setHero(s.key); div.onfocus = () => setHero(s.key); div.onclick = (e) => { if (e.target.classList.contains('fav')) { e.stopPropagation(); toggleFav(s.key); return } openEpisodes(s.key) }; donghuaRow.appendChild(div) }); renderContinuePanels(); updateFocusable(); history.replaceState({ view: 'home' }, '', location.pathname) }
+        function renderContinuePanels() { const p = progress(), entries = Object.values(p).sort((a, b) => (b.at || 0) - (a.at || 0)); function panel(entry) { const s = getSeries(entry.seriesKey), ep = getEpisode(entry.seriesKey, entry.seasonIndex, entry.idx); if (!s || !ep) return ''; const sn = entry.seasonIndex !== null ? s.seasons[entry.seasonIndex].name : ''; return `<div class="continuePanel"><img src="${s.poster}" onerror="this.src='images/placeholder.jpg'" alt=""><div><b>Continuar: ${escapeHtml(s.name)}</b><span>${escapeHtml(sn)} ${escapeHtml(ep.title)}</span></div><button class="btn primary focusable" onclick="playEpisode('${s.key}',${entry.idx},${entry.seasonIndex === null ? 'null' : entry.seasonIndex})">▶ Continuar</button></div>` } continueHome.innerHTML = entries[0] ? panel(entries[0]) : ''; const curr = progress()[currentSeriesKey]; continueSeries.innerHTML = curr ? panel(curr) : '' }
+        function openHome(push = true) { currentSeasonIndex = null; currentEpisodeIndex = null; currentMode = 'all'; renderHome(); if (push) history.pushState({ view: 'home' }, '', location.pathname) } function openEpisodes(key, seasonIndex = null, push = true) { const s = getSeries(key); if (!s) return; currentSeriesKey = key; currentSeasonIndex = seasonIndex; currentEpisodeIndex = null; homeView.classList.add('hide'); episodesView.classList.remove('hide'); playerWrap.style.display = 'none'; seriesTitle.textContent = s.name; seriesName.textContent = s.name; seriesDesc.textContent = s.desc || ''; seriesPoster.src = s.poster; seriesHeaderBg.style.backgroundImage = `url('${s.poster}')`; seriesMeta.innerHTML = tag(s.type) + tag(`${getTotalEpisodes(s)} eps`) + (hasSeasons(s) ? tag(`${s.seasons.length} temporadas`) : ''); seriesFavBtn.textContent = isFav(s.key) ? '⭐ Favorito' : '☆ Favoritar'; seriesFavBtn.onclick = () => toggleFav(s.key); playFirstBtn.onclick = () => { const p = firstPlayable(s); if (p) playEpisode(p.seriesKey, p.idx, p.seasonIndex) }; episodeSearch.value = ''; renderEpisodes(); renderContinuePanels(); window.scrollTo({ top: 0, behavior: 'smooth' }); if (push) history.pushState({ view: 'episodes', key, seasonIndex }, '', `#/${key}${seasonIndex !== null ? '/s' + seasonIndex : ''}`) } function openSeason(si, push = true) { currentSeasonIndex = si; renderEpisodes(); if (push) history.pushState({ view: 'episodes', key: currentSeriesKey, seasonIndex: si }, '', `#/${currentSeriesKey}/s${si}`) }
+        function renderEpisodes() { const s = getSeries(currentSeriesKey); if (!s) return; const q = (episodeSearch.value || '').trim().toLowerCase(); episodesGrid.innerHTML = ''; seasonTabs.innerHTML = ''; if (hasSeasons(s)) { if (currentSeasonIndex === null) currentSeasonIndex = 0; s.seasons.forEach((season, idx) => { const b = document.createElement('button'); b.className = 'seasonTab focusable ' + (idx === currentSeasonIndex ? 'active' : ''); b.textContent = `${season.name} (${season.episodes.length})`; b.onclick = () => openSeason(idx); seasonTabs.appendChild(b) }) } const eps = hasSeasons(s) ? s.seasons[currentSeasonIndex].episodes : s.episodes; seriesPill.textContent = hasSeasons(s) ? `${s.seasons[currentSeasonIndex].name} • ${eps.length} eps` : `${eps.length} eps`; const w = watched(); eps.map((ep, idx) => ({ ...ep, idx })).filter(ep => !q || ep.title.toLowerCase().includes(q)).forEach(ep => { const key = epKey(s.key, currentSeasonIndex, ep.idx); const div = document.createElement('button'); div.className = 'ep focusable ' + (w[key] ? 'watched' : ''); div.innerHTML = `<b>${escapeHtml(ep.title)}</b><small>${w[key] ? 'Assistido' : 'Clique para assistir'} • Enter/OK</small>`; div.onclick = () => playEpisode(s.key, ep.idx, currentSeasonIndex); episodesGrid.appendChild(div) }); if (!episodesGrid.children.length) episodesGrid.innerHTML = '<div class="empty">Nenhum episódio encontrado.</div>'; updateFocusable() }
+        function tryFullscreen() { try { if (playerWrap.requestFullscreen) playerWrap.requestFullscreen() } catch { } } function playEpisode(seriesKey, idx, seasonIndex = null, push = true) { const s = getSeries(seriesKey), ep = getEpisode(seriesKey, seasonIndex, idx); if (!s || !ep) return; currentSeriesKey = seriesKey; currentSeasonIndex = seasonIndex; currentEpisodeIndex = idx; saveProgress(seriesKey, seasonIndex, idx); playerWrap.style.display = 'block'; homeView.classList.add('hide'); episodesView.classList.add('hide'); frame.src = `https://drive.google.com/file/d/${ep.id}/preview`; playerTitle.textContent = `${s.name} — ${seasonIndex !== null ? s.seasons[seasonIndex].name + ' • ' : ''}${ep.title}`; setTimeout(tryFullscreen, 250); setTimeout(showControls, 300); scheduleAutoplay(seriesKey, idx, seasonIndex); if (push) history.pushState({ view: 'player', key: seriesKey, seasonIndex, idx }, '', `#/${seriesKey}/play/${seasonIndex ?? 'single'}/${idx}`) } function closePlayer(push = true) { frame.src = ''; playerWrap.style.display = 'none'; clearAutoplay(); if (document.fullscreenElement) { try { document.exitFullscreen() } catch { } } openEpisodes(currentSeriesKey, currentSeasonIndex, push) } function nextEpisode() { nextEpisodeAuto(currentSeriesKey, currentEpisodeIndex, currentSeasonIndex) } function scheduleAutoplay(seriesKey, idx, seasonIndex = null) { clearAutoplay(); autoplayTimer = setTimeout(() => nextEpisodeAuto(seriesKey, idx, seasonIndex), (DURATIONS[seriesKey] ?? DEFAULT_EP_MINUTES) * 60 * 1000) } function clearAutoplay() { if (autoplayTimer) clearTimeout(autoplayTimer); autoplayTimer = null } function nextEpisodeAuto(seriesKey, idx, seasonIndex = null) { const s = getSeries(seriesKey); if (!s) return; markWatched(seriesKey, seasonIndex, idx); if (hasSeasons(s) && seasonIndex !== null) { let ni = idx + 1, ns = seasonIndex; if (ni >= s.seasons[ns].episodes.length) { ns++; ni = 0; if (ns >= s.seasons.length) ns = 0 } playEpisode(seriesKey, ni, ns); return } playEpisode(seriesKey, (idx + 1) % s.episodes.length, null) } function showControls() { controls.classList.add('show'); clearTimeout(controlsTimer); controlsTimer = setTimeout(() => controls.classList.remove('show'), 3300) }
+        nextBtn.onclick = nextEpisode; markWatchedBtn.onclick = () => markWatched(); backBtn.onclick = () => closePlayer(); homeBtn.onclick = () => openHome(); favoritesBtn.onclick = () => { currentMode = currentMode === 'favorites' ? 'all' : 'favorites'; renderHome(); favoritesBtn.textContent = currentMode === 'favorites' ? '📚 Todos' : '⭐ Favoritos' }; backHome.onclick = () => openHome(); globalSearch.oninput = renderHome; episodeSearch.oninput = renderEpisodes; document.addEventListener('mousemove', showControls); document.addEventListener('touchstart', showControls); playerWrap.addEventListener('click', e => { if (e.target === playerWrap) showControls() }); document.addEventListener('keydown', e => { showControls(); if (e.key === 'Escape' || e.key === 'Backspace') { if (playerWrap.style.display === 'block') { e.preventDefault(); closePlayer() } } if (playerWrap.style.display === 'block' && e.key === 'ArrowRight') { e.preventDefault(); nextEpisode() } handleRemoteKeys(e) }); window.addEventListener('popstate', e => { const st = e.state; if (!st) { renderHome(); return } if (st.view === 'home') renderHome(); if (st.view === 'episodes') openEpisodes(st.key, st.seasonIndex, false); if (st.view === 'player') playEpisode(st.key, st.idx, st.seasonIndex, false) });
+        let focusables = [], focusIndex = 0; function updateFocusable() { focusables = [...document.querySelectorAll('.focusable:not(.hide)')].filter(el => el.offsetParent !== null) } function setFocus(i) { updateFocusable(); if (!focusables.length) return; focusIndex = (i + focusables.length) % focusables.length; focusables.forEach(x => x.classList.remove('focused')); const el = focusables[focusIndex]; el.classList.add('focused'); el.focus({ preventScroll: false }); if (el.dataset.key) setHero(el.dataset.key) } function handleRemoteKeys(e) { if (['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); setFocus(focusIndex + ((e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1)) } if (e.key === 'Enter') { const el = document.activeElement; if (el && el.classList.contains('focusable')) el.click() } } function renderAll() { if (episodesView.classList.contains('hide')) renderHome(); else openEpisodes(currentSeriesKey, currentSeasonIndex, false) } renderHome(); setTimeout(() => setFocus(0), 300);
+    </script>
 </body>
+
 </html>
